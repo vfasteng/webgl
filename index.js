@@ -6,35 +6,35 @@ function node(param,value){
     return node[param]
 }{
 
-
+    
     /*attrs*/
-
+    
     /*systemDefs*/
-
+    
     node('load',async function load(uri,type){
         const promise=await fetch(uri)
         const text=await promise[type??"text"]()
         return text
     })
-
+    
     node('F32A',function(array){
       return new Float32Array(array)
     })
-
+    
     node('U16A',function(array){
       return new Uint16Array(array)
     })
-
+    
     node('assign',function(target,obj){
       return Object.assign(target,obj)
     })
-
+    
 
 }
 
 {
 
-
+    
 
     node('createCamera',function(gl){
 
@@ -51,7 +51,7 @@ function node(param,value){
               return mat4.perspective([], this.fov, this.aspect, this.near, this.far)
             }
           }
-
+        
 
         node('assignSource')(camera)
 
@@ -86,9 +86,9 @@ function node(param,value){
             return (scaleX / 3)+Math.random()*scaleX
         }
 
-        const factorX=0.2
+        const factorX=0.072
         function factor(){
-            return (factorX / 10)+Math.random()*factorX*0.3
+            return (factorX / 10)+Math.random()*factorX*0.13
         }
 
 
@@ -270,7 +270,7 @@ function node(param,value){
 
 
         node('fixGeometry',function(geometry){
-
+            
 
             const result={}
 
@@ -324,7 +324,7 @@ function node(param,value){
           0,0,1,0,
           0,0,0,1]
       },
-
+      
       clone(a) {
         let out = [];
         out[0] = a[0];
@@ -353,7 +353,7 @@ function node(param,value){
         let a00, a01, a02, a03;
         let a10, a11, a12, a13;
         let a20, a21, a22, a23;
-
+      
         if (a === out) {
           out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
           out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
@@ -372,7 +372,7 @@ function node(param,value){
           a21 = a[9];
           a22 = a[10];
           a23 = a[11];
-
+      
           out[0] = a00;
           out[1] = a01;
           out[2] = a02;
@@ -385,13 +385,13 @@ function node(param,value){
           out[9] = a21;
           out[10] = a22;
           out[11] = a23;
-
+      
           out[12] = a00 * x + a10 * y + a20 * z + a[12];
           out[13] = a01 * x + a11 * y + a21 * z + a[13];
           out[14] = a02 * x + a12 * y + a22 * z + a[14];
           out[15] = a03 * x + a13 * y + a23 * z + a[15];
         }
-
+      
         return out;
       },
 
@@ -399,7 +399,7 @@ function node(param,value){
         let x = v[0],
           y = v[1],
           z = v[2];
-
+      
         out[0] = a[0] * x;
         out[1] = a[1] * x;
         out[2] = a[2] * x;
@@ -431,20 +431,20 @@ function node(param,value){
         let b00, b01, b02;
         let b10, b11, b12;
         let b20, b21, b22;
-
+      
         if (len < EPSILON) {
           return null;
         }
-
+      
         len = 1 / len;
         x *= len;
         y *= len;
         z *= len;
-
+      
         s = Math.sin(rad);
         c = Math.cos(rad);
         t = 1 - c;
-
+      
         a00 = a[0];
         a01 = a[1];
         a02 = a[2];
@@ -457,7 +457,7 @@ function node(param,value){
         a21 = a[9];
         a22 = a[10];
         a23 = a[11];
-
+      
         // Construct the elements of the rotation matrix
         b00 = x * x * t + c;
         b01 = y * x * t + z * s;
@@ -468,7 +468,7 @@ function node(param,value){
         b20 = x * z * t + y * s;
         b21 = y * z * t - x * s;
         b22 = z * z * t + c;
-
+      
         // Perform rotation-specific matrix multiplication
         out[0] = a00 * b00 + a10 * b01 + a20 * b02;
         out[1] = a01 * b00 + a11 * b01 + a21 * b02;
@@ -482,7 +482,7 @@ function node(param,value){
         out[9] = a01 * b20 + a11 * b21 + a21 * b22;
         out[10] = a02 * b20 + a12 * b21 + a22 * b22;
         out[11] = a03 * b20 + a13 * b21 + a23 * b22;
-
+      
         if (a !== out) {
           // If the source and destination differ, copy the unchanged last row
           out[12] = a[12];
@@ -510,7 +510,7 @@ function node(param,value){
           a31 = a[13],
           a32 = a[14],
           a33 = a[15];
-
+      
         // Cache only the current line of the second matrix
         let b0 = b[0],
           b1 = b[1],
@@ -520,7 +520,7 @@ function node(param,value){
         out[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
         out[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
         out[3] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
-
+      
         b0 = b[4];
         b1 = b[5];
         b2 = b[6];
@@ -529,7 +529,7 @@ function node(param,value){
         out[5] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
         out[6] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
         out[7] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
-
+      
         b0 = b[8];
         b1 = b[9];
         b2 = b[10];
@@ -538,7 +538,7 @@ function node(param,value){
         out[9] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
         out[10] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
         out[11] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
-
+      
         b0 = b[12];
         b1 = b[13];
         b2 = b[14];
@@ -568,7 +568,7 @@ function node(param,value){
           a31 = a[13],
           a32 = a[14],
           a33 = a[15];
-
+      
         let b00 = a00 * a11 - a01 * a10;
         let b01 = a00 * a12 - a02 * a10;
         let b02 = a00 * a13 - a03 * a10;
@@ -581,16 +581,16 @@ function node(param,value){
         let b09 = a21 * a32 - a22 * a31;
         let b10 = a21 * a33 - a23 * a31;
         let b11 = a22 * a33 - a23 * a32;
-
+      
         // Calculate the determinant
         let det =
           b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
-
+      
         if (!det) {
           return null;
         }
         det = 1.0 / det;
-
+      
         out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
         out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
         out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
@@ -607,10 +607,10 @@ function node(param,value){
         out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
         out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
         out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
-
+      
         return out;
       },
-
+      
       //perspectiveNO
       perspective(out, fovy, aspect, near, far) {
         const f = 1.0 / Math.tan(fovy / 2);
@@ -640,11 +640,11 @@ function node(param,value){
       }
 
 
-
+    
     })
-
+    
     node('mat4',mat4)
-
+    
 
 }
 
@@ -661,11 +661,11 @@ function node(param,value){
       return buffer;
 
     })
-
+    
 
 
     node('setupAttribute',function(gl,shaderProgram,buffer,name,size,arrayType){
-
+      
       if(arrayType===undefined){
         arrayType=gl.ARRAY_BUFFER
       }
@@ -699,7 +699,7 @@ function node(param,value){
         }
 
       }
-
+      
       return buffers
 
     })
@@ -719,7 +719,7 @@ function node(param,value){
         let arrayType= (key==='indices')? gl.ELEMENT_ARRAY_BUFFER: gl.ARRAY_BUFFER
 
           node('setupAttribute')(gl,shaderProgram, buffers[key], key,arraySize,arrayType)
-
+            
       }
 
       gl.bindVertexArray(null);
@@ -746,10 +746,10 @@ function node(param,value){
             gl.useProgram(this.shaderProgram);
 
 
-
+           
             gl.bindVertexArray(this.vao);
 
-
+            
             const uniformSetter=node('uniformsSetter')(gl,this.shaderProgram)
 
             uniformSetter.set(uniforms)
@@ -757,8 +757,8 @@ function node(param,value){
             uniformSetter.set({
               model:this.matrix(),
             })
-
-
+          
+            
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.indices);
 
             gl.drawElements(gl.TRIANGLES, this.geometry.indices.length, gl.UNSIGNED_SHORT, 0);
@@ -782,7 +782,7 @@ function node(param,value){
 
         gl.enable(gl.DEPTH_TEST);
         gl.depthFunc(gl.LEQUAL);
-        gl.clearColor(0.5, 0.5, 0.5, 0.9);
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
         gl.clearDepth(1.0);
 
     })
@@ -880,7 +880,7 @@ function node(param,value){
     node('loadTexture',function loadTexture(gl, url) {
         const texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);
-
+     
         // Because images have to be download over the internet
         // they might take a moment until they are ready.
         // Until then put a single pixel in the texture so we can
@@ -897,13 +897,13 @@ function node(param,value){
         gl.texImage2D(gl.TEXTURE_2D, level, internalFormat,
                     width, height, border, srcFormat, srcType,
                     pixel);
-
+     
         const image = new Image();
         image.onload = function() {
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.texImage2D(gl.TEXTURE_2D, level, internalFormat,
                        srcFormat, srcType, image);
-
+     
         // WebGL1 has different requirements for power of 2 images
         // vs non power of 2 images so check if the image is a
         // power of 2 in both dimensions.
@@ -919,10 +919,10 @@ function node(param,value){
         }
         };
         image.src = url;
-
+     
         return texture;
      })
-
+     
      function isPowerOf2(value) {
         return (value & (value - 1)) == 0;
      }
@@ -934,32 +934,32 @@ function node(param,value){
 
 
     node('uniformsSetter',function uniformsSetter(gl, program){
-
+       
         let sampler=0
         gl.activeTexture(gl.TEXTURE0)
         gl.bindTexture(gl.TEXTURE_2D,null)
-
+      
         return {
             set(uniforms){
-
+                
                 for(const key of Object.keys(uniforms)){
 
                     const pointer = gl.getUniformLocation(program,key)
                     const Value=uniforms[key]
-
+                
                     if((! pointer)||(Value===undefined)){
                         return
                     }
-
-
-
+                    
+                    
+                    
                     if((Value!==undefined)&&(Value["constructor"]["name"]==="WebGLTexture")){
                         gl.uniform1i(pointer,sampler)
                         gl.activeTexture(gl.TEXTURE0+sampler)
                         gl.bindTexture(gl.TEXTURE_2D,Value)
                         sampler++
                     }else{
-
+                        
                         switch(Value.length) {
                             case 16:
                                 gl.uniformMatrix4fv(pointer,null,Value)
@@ -976,12 +976,12 @@ function node(param,value){
                             default:
                                 gl.uniform1f(pointer,Value)
                           }
-
+                        
 
                     }
-
+            
                 }
-
+                
             }
         }
     })
@@ -1030,3 +1030,4 @@ function node(param,value){
     })
 
 }
+

@@ -23,9 +23,9 @@
             return (scaleX / 3)+Math.random()*scaleX
         }
 
-        const factorX=0.2
+        const factorX=0.072
         function factor(){
-            return (factorX / 10)+Math.random()*factorX*0.3
+            return (factorX / 10)+Math.random()*factorX*0.13
         }
 
 
