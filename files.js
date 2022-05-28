@@ -11,9 +11,11 @@ const files=[
     ,"/js/texture.js"
     ,"/js/uniform.js"
     ,"/js/vec3.js"
+
+   // ,"/js/earcut.js"
   
     ,"/js/scene/cubes.js"
-    ,"/js/scene/triangulation.js"
+    //,"/js/scene/triangulation.js"
     ,"/js/scene/render2d.js"
   
     ,"/js/index.js"

@@ -13,17 +13,17 @@
 
         
 
-        const points=[]
+        const positions=[]
         for(let i=0;i<20;i++){
-            points.push({point:[Math.random(),Math.random(),0]})
+            positions.push(...[Math.random(),Math.random()])
         }
 
 
         //const trianglesCount=(points.length/3)-2
 
-        console.log('points',points)
+        console.log('positions',positions)
 
-        let len=1000000;
+        /*let len=1000000;
         let pointSh
         for(const point of points){
             const leng=vec3.long(point.point);
@@ -32,9 +32,9 @@
                 len=leng;
                 pointSh=point
             }
-        }
+        }*/
 
-        function pairTriangle(point1){
+        /*function pairTriangle(point1){
             let triagle=[];
 
             for(const point of points){
@@ -57,24 +57,36 @@
             triagle=[point1,point2,point3];
 
             return triagle;
-        }
-        const triangles=[];
+        }*/
+        /*const triangles=[];
         
         for(const point of points){
             const triangle=pairTriangle(point)
 
             triangles.push(triangle);
-        }
-
+        }*/
+        //var toProcess = earcut.flatten(positions);
+        //var result = earcut(toProcess.vertices, toProcess.holes, toProcess.dimensions);
+        //const verts=[]
+        //for(const trian of triangles){
+        //    verts.push(...trian)
+        //}
+        const indices = earcut(positions,null,2);//earcut(positions,[4]);
+        console.log('indices',indices)
+        //const positions=[]
+        //for(const p of poly){
+        //    positions.push(...triangles[p])
+        //}
+        //const indices=poly
 
         const shaderProgram=await node('createShaderByName')(gl,"default")
     
         {
 
-            const positions=[]
-            points.map(pos=>positions.push(...pos.point))
+            //const positions=[]
+            //points.map(pos=>positions.push(...pos.point))
 
-            let geometry={positions}
+            let geometry={positions,indices}
             
             geometry=node('fixGeometry')(geometry)
 
@@ -84,14 +96,14 @@
 
             const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
 
-            mesh.mode=gl.POINTS;
+            //mesh.mode=gl.POINTS;
 
             engine.models.push(mesh)
         }
 
 
 
-        {
+        /*{
             const tpositions=[]
             triangles.map(triangle=>triangle.map(pos=>tpositions.push(...pos.point)))
 
@@ -108,7 +120,7 @@
             //tmesh.mode=gl.LINES;
 
             engine.models.push(tmesh)
-        }
+        }*/
 
 
 
