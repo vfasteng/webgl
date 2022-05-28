@@ -3,9 +3,9 @@
     node('init',function(){
 
 
-        node('Render2DScene')()
+        //node('Render2DScene')()
 
-        //node('TriangulationScene')()
+        node('TriangulationScene')()
 
 
     })

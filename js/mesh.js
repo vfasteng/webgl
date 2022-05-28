@@ -108,11 +108,17 @@
               model:this.matrix(),
             })
           
-            
+          if(this.geometry.indices){
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.indices);
 
             gl.drawElements(this.mode, this.geometry.indices.length, gl.UNSIGNED_SHORT, 0);
-
+          }else{
+            let count=this.geometry.positions.length/3
+            //if(this.mode===gl.POINTS){
+            //  count=this.geometry.positions.length/3
+            //}
+            gl.drawArrays(this.mode, 0, count);
+          }
         }
       }
 
