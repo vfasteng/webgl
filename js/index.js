@@ -8,9 +8,11 @@
 
     })
 
-    window.addEventListener('DOMContentLoaded', () => {
+    /*window.addEventListener('DOMContentLoaded', () => {
         node('init')()
-    })
+    })*/
+
+    node('init')()
 
 }
 

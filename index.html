@@ -14,24 +14,13 @@ canvas {
     </head>
 <body></body>
 
-    <script src="/js/node.js"></script>
-    <script src="/js/common.js"></script>
-    <script src="/js/camera.js"></script>
-    <script src="/js/engine.js"></script>
-    <script src="/js/geometry.js"></script>
-    <script src="/js/mat4.js"></script>
-    <script src="/js/mesh.js"></script>
-    <script src="/js/scene.js"></script>
-    <script src="/js/shader.js"></script>
-    <script src="/js/texture.js"></script>
-    <script src="/js/uniform.js"></script>
-    <script src="/js/vec3.js"></script>
-    
-    <script src="/js/scene/cubes.js"></script>
-    <script src="/js/scene/triangulation.js"></script>
-    <script src="/js/scene/render2d.js"></script>
-
-    <script src="/js/index.js"></script>
-
+<script src="/files.js"></script>
+<script>
+    for(const file of files){
+        const script=document.createElement('script');
+        script.src=file;
+        document.body.append(script);
+    }
+</script>
 
 </html>

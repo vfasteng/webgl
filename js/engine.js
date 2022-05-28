@@ -3,14 +3,16 @@
 
 {
 
-    node('engine',async function(){
+    node('engine',async function(canvas){
 
-
-    const canvas=document.createElement('canvas')
-      canvas.width=window.innerWidth
-      canvas.height=window.innerHeight
+      if(canvas===undefined){
+        canvas=document.createElement('canvas')
+        canvas.width=window.innerWidth
+        canvas.height=window.innerHeight
+        document.body.append(canvas)
+      }
       const gl = canvas.getContext("webgl2")
-      document.body.append(canvas)
+      
 
 
 
