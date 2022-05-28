@@ -89,7 +89,7 @@
         buffers: buffers=node('createBuffersFromGeometry')(gl, geometry),
         shaderProgram,
         vao: node('setupAttributesAngGetVAO')(gl,shaderProgram,buffers),
-
+        mode:gl.TRIANGLES,
 
         render(gl,uniforms){
 
@@ -111,7 +111,7 @@
             
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.indices);
 
-            gl.drawElements(gl.TRIANGLES, this.geometry.indices.length, gl.UNSIGNED_SHORT, 0);
+            gl.drawElements(this.mode, this.geometry.indices.length, gl.UNSIGNED_SHORT, 0);
 
         }
       }

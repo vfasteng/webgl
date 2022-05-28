@@ -6,9 +6,7 @@
 
 
 
-        const Canvas=document.querySelector("#webgl-canvas");
-
-        const engine=await node('engine')(Canvas)
+        const engine=await node('engine')()
         const gl=engine.gl
 
 
@@ -50,6 +48,8 @@
             mesh.uniforms={
                 diffuseTexture,
             }
+
+            //mesh.mode=gl.LINE_STRIP;
 
             meshes.push(mesh)
         }

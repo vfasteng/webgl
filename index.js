@@ -63,104 +63,52 @@ function node(param,value){
 
 }{
 
+    node('setupScene',function(gl){
+
+        gl.enable(gl.DEPTH_TEST);
+        gl.depthFunc(gl.LEQUAL);
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
+        gl.clearDepth(1.0);
+
+    })
+
+    node('clearScene',function(gl){
+
+        gl.viewport(0.0, 0.0, gl.canvas.width, gl.canvas.height);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    })
 
 
-    node('CubesScene',async function(){
+    node('assignSource',function(target){
 
+        const mat4=node('mat4')
+        const vec3=node('vec3')
 
+        return Object.assign(target,{
 
-        const Canvas=document.querySelector("#webgl-canvas");
-
-        const engine=await node('engine')(Canvas)
-        const gl=engine.gl
-
-
-
-        const posX=5
-        function pos(){
-            return (posX / 2)-Math.random()*posX
-        }
-
-        const scaleX=0.2
-        function scale(){
-            return (scaleX / 3)+Math.random()*scaleX
-        }
-
-        const factorX=0.072
-        function factor(){
-            return (factorX / 10)+Math.random()*factorX*0.13
-        }
-
-
-
-
-        const shaderProgram=await node('createShaderByName')(gl,"default")
-
-        let geometry=await node('load')("/wp-includes/models/box.json","json")
-        geometry=node('fixGeometry')(geometry)
-
-        const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")
-
-        const meshes=[]
-
-        for(let i=0;i<20;i++){
-            const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
-            mesh.source.translation=[pos(), pos(), pos()]
-            const scaleX=scale()
-            mesh.source.scale=[scaleX,scaleX,scaleX]
-            mesh.source.factor=[factor(),factor(),factor()]
-
-            mesh.uniforms={
-                diffuseTexture,
+            source:{
+                translation:vec3.create(),
+                rotation:vec3.create(),
+                scale:vec3.create(1.0),
+            },
+            matrix(){
+                const matrix=mat4.create()
+                mat4.translate(matrix, matrix, this.source.translation);
+                mat4.rotate(matrix, matrix, this.source.rotation[2], [0,0,1]);
+                mat4.rotate(matrix, matrix, this.source.rotation[1], [0,1,0]);
+                mat4.rotate(matrix, matrix, this.source.rotation[0], [1,0,0]);
+                mat4.scale(matrix, matrix, this.source.scale);
+                return matrix
             }
 
-            meshes.push(mesh)
-        }
-
-
-
-            for(const mesh of meshes){
-
-                mesh.animate=function(frameTime){
-
-                    mesh.source.rotation=mesh.source.rotation.map((n,i)=>n+mesh.source.factor[i])
-
-                }
-            }
-            //const rotation=[frameTime*0.3, frameTime*0.12, frameTime*0.45]
-            //this.source.rotation=this.source.rotation.map((n,i)=>n+rotation[i])
-
-
-
-        engine.models.push(...meshes)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //node('loadGLTF')('./models/stickman/scene.gltf')
-
-
-
+        })
 
 
     })
 
 
-
 }
-
 /*glarr*/
 
 {
@@ -169,8 +117,8 @@ function node(param,value){
 
 
     const canvas=document.createElement('canvas')
-      canvas.width=512
-      canvas.height=512
+      canvas.width=window.innerWidth
+      canvas.height=window.innerHeight
       const gl = canvas.getContext("webgl2")
       document.body.append(canvas)
 
@@ -739,7 +687,7 @@ function node(param,value){
         buffers: buffers=node('createBuffersFromGeometry')(gl, geometry),
         shaderProgram,
         vao: node('setupAttributesAngGetVAO')(gl,shaderProgram,buffers),
-
+        mode:gl.TRIANGLES,
 
         render(gl,uniforms){
 
@@ -761,7 +709,7 @@ function node(param,value){
             
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.indices);
 
-            gl.drawElements(gl.TRIANGLES, this.geometry.indices.length, gl.UNSIGNED_SHORT, 0);
+            gl.drawElements(this.mode, this.geometry.indices.length, gl.UNSIGNED_SHORT, 0);
 
         }
       }
@@ -777,53 +725,6 @@ function node(param,value){
 }
 
 {
-
-    node('setupScene',function(gl){
-
-        gl.enable(gl.DEPTH_TEST);
-        gl.depthFunc(gl.LEQUAL);
-        gl.clearColor(0.0, 0.0, 0.0, 0.0);
-        gl.clearDepth(1.0);
-
-    })
-
-    node('clearScene',function(gl){
-
-        gl.viewport(0.0, 0.0, gl.canvas.width, gl.canvas.height);
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-    })
-
-
-    node('assignSource',function(target){
-
-        const mat4=node('mat4')
-        const vec3=node('vec3')
-
-        return Object.assign(target,{
-
-            source:{
-                translation:vec3.create(),
-                rotation:vec3.create(),
-                scale:vec3.create(1.0),
-            },
-            matrix(){
-                const matrix=mat4.create()
-                mat4.translate(matrix, matrix, this.source.translation);
-                mat4.rotate(matrix, matrix, this.source.rotation[2], [0,0,1]);
-                mat4.rotate(matrix, matrix, this.source.rotation[1], [0,1,0]);
-                mat4.rotate(matrix, matrix, this.source.rotation[0], [1,0,0]);
-                mat4.scale(matrix, matrix, this.source.scale);
-                return matrix
-            }
-
-        })
-
-
-    })
-
-
-}{
 
     node('createShaderByName',async function(gl,name){
 
@@ -1016,6 +917,105 @@ function node(param,value){
 
 
 }{
+
+
+
+    node('CubesScene',async function(){
+
+
+
+        const engine=await node('engine')()
+        const gl=engine.gl
+
+
+
+        const posX=5
+        function pos(){
+            return (posX / 2)-Math.random()*posX
+        }
+
+        const scaleX=0.2
+        function scale(){
+            return (scaleX / 3)+Math.random()*scaleX
+        }
+
+        const factorX=0.072
+        function factor(){
+            return (factorX / 10)+Math.random()*factorX*0.13
+        }
+
+
+
+
+        const shaderProgram=await node('createShaderByName')(gl,"default")
+
+        let geometry=await node('load')("/wp-includes/models/box.json","json")
+        geometry=node('fixGeometry')(geometry)
+
+        const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")
+
+        const meshes=[]
+
+        for(let i=0;i<20;i++){
+            const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+            mesh.source.translation=[pos(), pos(), pos()]
+            const scaleX=scale()
+            mesh.source.scale=[scaleX,scaleX,scaleX]
+            mesh.source.factor=[factor(),factor(),factor()]
+
+            mesh.uniforms={
+                diffuseTexture,
+            }
+
+            mesh.mode=gl.LINE_STRIP;
+
+            meshes.push(mesh)
+        }
+
+
+
+            for(const mesh of meshes){
+
+                mesh.animate=function(frameTime){
+
+                    mesh.source.rotation=mesh.source.rotation.map((n,i)=>n+mesh.source.factor[i])
+
+                }
+            }
+            //const rotation=[frameTime*0.3, frameTime*0.12, frameTime*0.45]
+            //this.source.rotation=this.source.rotation.map((n,i)=>n+rotation[i])
+
+
+
+        engine.models.push(...meshes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //node('loadGLTF')('./models/stickman/scene.gltf')
+
+
+
+
+
+    })
+
+
+
+}
+{
 
     node('init',function(){
 

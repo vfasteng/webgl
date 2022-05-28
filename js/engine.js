@@ -7,8 +7,8 @@
 
 
     const canvas=document.createElement('canvas')
-      canvas.width=512
-      canvas.height=512
+      canvas.width=window.innerWidth
+      canvas.height=window.innerHeight
       const gl = canvas.getContext("webgl2")
       document.body.append(canvas)
 
