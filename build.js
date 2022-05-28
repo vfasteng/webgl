@@ -4,13 +4,11 @@ const files=require('./files.js')
 
 
 
-let script
+let script=''
 
 for(const file of files){
-  if(file===undefined){
-
-  }else{
-    script+=(fs.readFileSync('.'+file).toString());
+  if(file.indexOf('.js')>-1){
+    script+=fs.readFileSync('.'+file).toString()
   }
 }
 

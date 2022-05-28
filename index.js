@@ -113,14 +113,16 @@ function node(param,value){
 
 {
 
-    node('engine',async function(){
+    node('engine',async function(canvas){
 
-
-    const canvas=document.createElement('canvas')
-      canvas.width=window.innerWidth
-      canvas.height=window.innerHeight
+      if(canvas===undefined){
+        canvas=document.createElement('canvas')
+        canvas.width=window.innerWidth
+        canvas.height=window.innerHeight
+        document.body.append(canvas)
+      }
       const gl = canvas.getContext("webgl2")
-      document.body.append(canvas)
+      
 
 
 
@@ -967,7 +969,7 @@ function node(param,value){
                 diffuseTexture,
             }
 
-            mesh.mode=gl.LINE_STRIP;
+            //mesh.mode=gl.LINE_STRIP;
 
             meshes.push(mesh)
         }
@@ -1017,17 +1019,151 @@ function node(param,value){
 }
 {
 
+
+
+    node('TriangulationScene',async function(){
+
+
+
+        const engine=await node('engine')()
+        const gl=engine.gl
+
+
+
+        
+
+        const positions=[]
+        for(let i=0;i<4;i++){
+            positions.push(...[Math.random(),Math.random(),0])
+        }
+
+
+        const trianglesCount=(positions.length/3)-2
+
+        console.log('trianglesCount',trianglesCount)
+
+        const indices=[]
+        indices.push(0,1,2, 1,3,2)
+
+
+
+        const shaderProgram=await node('createShaderByName')(gl,"default")
+
+        let geometry={positions,indices}
+        
+        geometry=node('fixGeometry')(geometry)
+
+        //const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")
+
+        
+
+        const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+
+
+
+        engine.models.push(mesh)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //node('loadGLTF')('./models/stickman/scene.gltf')
+
+
+
+
+
+    })
+
+
+
+}
+{
+
+
+
+    node('Render2DScene',async function(){
+
+
+
+        const engine=await node('engine')()
+        const gl=engine.gl
+
+
+
+        
+        //engine.camera.source.translation = vec3.create()
+
+
+        const shaderProgram=await node('createShaderByName')(gl,"render2d")
+
+        let geometry=await node('load')("/wp-includes/models/quad.json","json")
+        
+        geometry=node('fixGeometry')(geometry)
+
+        //const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")
+
+        
+
+        const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+
+        mesh.source.scale=[0.8,0.8,0.8]
+
+
+        engine.models.push(mesh)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //node('loadGLTF')('./models/stickman/scene.gltf')
+
+
+
+
+
+    })
+
+
+
+}
+{
+
     node('init',function(){
 
 
-        node('CubesScene')()
+        node('Render2DScene')()
 
 
     })
 
-    window.addEventListener('DOMContentLoaded', () => {
+    /*window.addEventListener('DOMContentLoaded', () => {
         node('init')()
-    })
+    })*/
+
+    node('init')()
 
 }
 
