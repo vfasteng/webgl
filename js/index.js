@@ -3,7 +3,7 @@
     node('init',function(){
 
 
-        node('CubesScene')()
+        node('Render2DScene')()
 
 
     })

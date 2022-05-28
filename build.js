@@ -17,6 +17,8 @@ const files=[
   ,"/js/vec3.js"
 
   ,"/js/scene/cubes.js"
+  ,"/js/scene/triangulation.js"
+  ,"/js/scene/render2d.js"
 
   ,"/js/index.js"
 ]
