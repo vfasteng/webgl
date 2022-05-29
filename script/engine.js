@@ -49,7 +49,7 @@
     this.print4 = new Print(this, 0.0,-1.0, -x, -x+wx)*/
 
 
-
+    const diffuseTexture=node('loadTexture')(gl,"/images/box.webp")
 
 
 
@@ -118,7 +118,7 @@
        render(gl, uniforms, frameTime)
        
 
-       uniforms.colorTexture=buffer.color
+       uniforms.colorTexture=diffuseTexture//buffer.color
        print.render(gl,uniforms)
 
 

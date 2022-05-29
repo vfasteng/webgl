@@ -26,7 +26,7 @@ node('ceratePrinter',async function(engine,left,right,top,bottom){
 
         //mesh.source.scale=[0.8,0.8,0.8]
 
-        //engine.models.push(mesh)
+        engine.models.push(mesh)
 
 
         //const uniforms={}

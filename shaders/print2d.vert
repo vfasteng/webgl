@@ -6,7 +6,7 @@ in vec2 texcoords;
 
 //uniform mat4 projection;
 //uniform mat4 camera;
-uniform mat4 model;
+//uniform mat4 model;
 
 //attribute vec3 color;
 
@@ -18,7 +18,7 @@ void main(void) {
     gl_PointSize = 5.0;
     //glLineWidth = 3.0;
 
-    gl_Position = model * vec4(positions, 1.);
+    gl_Position = vec4(positions, 1.0);
 
     //vColor = color;
     vTexCoords=texcoords;
