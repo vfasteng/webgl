@@ -20,7 +20,7 @@ node('ceratePrinter',async function(engine,left,right,top,bottom){
 
         geometry=node('fixGeometry')(geometry)
 
-        const shaderProgram=await node('createShaderByName')(gl,'print2d')
+        const shaderProgram=await node('createShaderByName')(gl,"print2d")
 
         const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
 

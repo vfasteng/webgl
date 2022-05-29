@@ -4,10 +4,12 @@
 
       const load=node('load')
 
-      let path="/wp-includes/shaders"
-      if(DEBUG){
+      let path="/shaders-min"
+      try{
+      if(DEBUG!==undefined){
         path="/shaders"
       }
+    }catch(e){}
 
       const vertCode = await load(path+"/"+name+".vert")
       const fragCode = await load(path+"/"+name+".frag")
