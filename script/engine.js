@@ -53,7 +53,7 @@
 
 
 
-
+    print.uniforms.colorTexture=diffuseTexture//buffer.color
 
 
 
@@ -118,7 +118,7 @@
        render(gl, uniforms, frameTime)
        
 
-       uniforms.colorTexture=diffuseTexture//buffer.color
+       
        print.render(gl,uniforms)
 
 

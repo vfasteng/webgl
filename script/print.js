@@ -29,12 +29,12 @@ node('ceratePrinter',async function(engine,left,right,top,bottom){
         engine.models.push(mesh)
 
 
-        //const uniforms={}
+        const uniforms={}
 
         return {
-           // uniforms,
+            uniforms,
             render(gl,uniforms){
-                //Object.assign(uniforms,this.uniforms)
+                Object.assign(uniforms,this.uniforms)
                 mesh.render(gl,uniforms)
             }
         }
