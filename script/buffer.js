@@ -35,8 +35,8 @@ node('createRenderBuffer',function(gl,width,height){
 
     //this.checkBuffer();
 
-    //gl.bindTexture(gl.TEXTURE_2D, null);
-    //gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+    gl.bindTexture(gl.TEXTURE_2D, null);
+    gl.bindRenderbuffer(gl.RENDERBUFFER, null);
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
     return buffer

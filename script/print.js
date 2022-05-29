@@ -33,7 +33,7 @@ node('ceratePrinter',async function(engine,left,right,top,bottom){
 
         return {
            // uniforms,
-            render(gl,uniforms={}){
+            render(gl,uniforms){
                 //Object.assign(uniforms,this.uniforms)
                 mesh.render(gl,uniforms)
             }

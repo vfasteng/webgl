@@ -12,10 +12,10 @@ out vec4 outColor;
 
 void main(void) {
 
-    vec4 diffuseColor = texture(colorTexture, vTexCoords);
+    vec3 color = texture(colorTexture, vTexCoords).rgb;
 
     //vec3 color=vec3(vTexCoords.x,vTexCoords.y,0.5);
 
-    outColor = vec4(diffuseColor.rgb, 1.0);
+    outColor = vec4(color, 1.0);
 
 }
