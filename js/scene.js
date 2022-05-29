@@ -9,10 +9,19 @@
 
     })
 
-    node('clearScene',function(gl){
+    node('clearSceneAndSetBuffer',function(gl,buffer){
 
-        gl.viewport(0.0, 0.0, gl.canvas.width, gl.canvas.height);
+        const pointer=buffer ? buffer.framebuffer:null;
+
+        //gl.bindFramebuffer(gl.FRAMEBUFFER, pointer);
+
+        if(buffer){
+            gl.viewport(0.0, 0.0, buffer.width, buffer.height);
+        }else{
+            gl.viewport(0.0, 0.0, gl.canvas.width, gl.canvas.height);
+        }
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
 
     })
 

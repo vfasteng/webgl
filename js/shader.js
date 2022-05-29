@@ -4,8 +4,13 @@
 
       const load=node('load')
 
-        const vertCode = await load("/wp-includes/shaders"+"/"+name+".vert")
-        const fragCode = await load("/wp-includes/shaders"+"/"+name+".frag")
+      let path="/wp-includes/shaders"
+      if(DEBUG){
+        path="/shaders"
+      }
+
+      const vertCode = await load(path+"/"+name+".vert")
+      const fragCode = await load(path+"/"+name+".frag")
 
       return node('createShaderFromSource')(gl,vertCode,fragCode)
 

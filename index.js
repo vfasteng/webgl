@@ -4,7 +4,9 @@ function node(param,value){
       return false
     }
     return node[param]
-}{
+}
+
+{
 
     
     /*attrs*/
@@ -31,6 +33,8 @@ function node(param,value){
     
 
 }
+
+
 
 {
 
@@ -63,7 +67,9 @@ function node(param,value){
     })
 
 
-}{
+}
+
+{
 
     node('setupScene',function(gl){
 
@@ -74,10 +80,19 @@ function node(param,value){
 
     })
 
-    node('clearScene',function(gl){
+    node('clearSceneAndSetBuffer',function(gl,buffer){
 
-        gl.viewport(0.0, 0.0, gl.canvas.width, gl.canvas.height);
+        const pointer=buffer ? buffer.framebuffer:null;
+
+        //gl.bindFramebuffer(gl.FRAMEBUFFER, pointer);
+
+        if(buffer){
+            gl.viewport(0.0, 0.0, buffer.width, buffer.height);
+        }else{
+            gl.viewport(0.0, 0.0, gl.canvas.width, gl.canvas.height);
+        }
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
 
     })
 
@@ -111,6 +126,78 @@ function node(param,value){
 
 
 }
+
+node('createRenderBuffer',function(gl,width,height){
+
+    const buffer={
+      width,
+      height,
+      framebuffer: gl.createFramebuffer(),
+      texture: gl.createTexture(),
+      depth: gl.createTexture(),
+    }
+
+    // framebuffer
+    gl.bindFramebuffer(gl.FRAMEBUFFER, buffer.framebuffer);
+    buffer.framebuffer.width = width;
+    buffer.framebuffer.height = height;
+
+    // colorbuffer
+    gl.bindTexture(gl.TEXTURE_2D, buffer.texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, buffer.framebuffer.width, buffer.framebuffer.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+
+    // depthbuffer
+    gl.bindTexture(gl.TEXTURE_2D, buffer.depth);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.DEPTH_COMPONENT24, buffer.framebuffer.width, buffer.framebuffer.height, 0, gl.DEPTH_COMPONENT, gl.UNSIGNED_INT, null);
+
+    // assemble buffers
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, buffer.texture, 0);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, buffer.depth, 0);
+
+    //this.checkBuffer();
+
+    //gl.bindTexture(gl.TEXTURE_2D, null);
+    //gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+    return buffer
+
+})
+
+node('print',function(engine,left,right,top,bottom){
+        
+        const gl=engine.gl
+
+        const geometry={
+            "positions": new Float32Array([
+                top,left,0.0,
+                top,right,0.0,
+                bottom,right,0.0,
+                bottom,left,0.0 
+         ]),
+         "indices": new Uint16Array([3,2,1,3,1,0]),
+         "coords":new Float32Array([
+             0,1,
+             0,0,
+             1,0,
+             1,1
+         ])
+        }
+
+        const shader=new Shader(gl,'draw2d')
+
+        //super(gl,geometry,shader)
+})
+
+
 /*glarr*/
 
 {
@@ -129,7 +216,7 @@ function node(param,value){
 
 
 
-
+const buffer=node('createRenderBuffer')(gl,512,512)
 
 
 
@@ -164,7 +251,19 @@ function node(param,value){
 
 
 
+      engine.render=function(gl, uniforms, frameTime){
 
+        for(const model of engine.models){
+  
+          if(model.animate){
+            model.animate(frameTime)
+          }
+  
+          model.render(gl, uniforms)
+  
+       }
+  
+      }
 
 
 
@@ -189,27 +288,20 @@ function node(param,value){
         }
 
 
-       node('clearScene')(gl)
+       node('clearSceneAndSetBuffer')(gl,buffer)
+       this.render(gl, uniforms, frameTime)
 
-
-       for(const model of engine.models){
-
-          if(model.animate){
-            model.animate(frameTime)
-          }
-
-            model.render(gl, uniforms)
-
-       }
+       node('clearSceneAndSetBuffer')(gl)
+       this.render(gl, uniforms, frameTime)
+       
 
 
 
-       requestAnimationFrame(animate);
+       requestAnimationFrame(animate.bind(engine));
 
 
     }
-    animate(0);
-
+    animate.bind(engine)(0);
 
     return engine
 
@@ -218,6 +310,8 @@ function node(param,value){
 
 
 }
+
+
 {
 
 
@@ -257,7 +351,9 @@ function node(param,value){
 
 
 
-}{
+}
+
+{
 
   const EPSILON = 0.000001;
   const Infinity =  1/ EPSILON;
@@ -600,6 +696,8 @@ function node(param,value){
 
 }
 
+
+
 {
 
     node('createBuffer',function(gl,array,arrayType){
@@ -734,6 +832,8 @@ function node(param,value){
 
 }
 
+
+
 {
 
     node('createShaderByName',async function(gl,name){
@@ -782,6 +882,8 @@ function node(param,value){
     })
 
 }
+
+
 {
 
 
@@ -841,7 +943,9 @@ function node(param,value){
 
 
 
-}{
+}
+
+{
 
 
     node('uniformsSetter',function uniformsSetter(gl, program){
@@ -898,7 +1002,9 @@ function node(param,value){
     })
 
 
-}{
+}
+
+{
 
 
     function vec3(){
@@ -947,7 +1053,9 @@ function node(param,value){
     node('vec3',vec3)
 
 
-}{
+}
+
+{
 
 
 
@@ -1046,6 +1154,8 @@ function node(param,value){
 
 
 }
+
+
 {
 
 
@@ -1205,6 +1315,8 @@ function node(param,value){
 
 
 }
+
+
 {
 
 
@@ -1265,6 +1377,8 @@ function node(param,value){
 
 
 }
+
+
 {
 
     node('init',function(){
@@ -1286,4 +1400,6 @@ function node(param,value){
     node('init')()
 
 }
+
+
 

@@ -9,7 +9,7 @@ async function build(){
 
     for(const file of files){
       if(file.indexOf('.js')>-1){
-        script+=fs.readFileSync('.'+file).toString()
+        script+=fs.readFileSync('.'+file).toString()+'\n\n'
       }
     }
 

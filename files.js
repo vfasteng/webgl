@@ -3,7 +3,13 @@ const files=[
     ,"/js/common.js"
     ,"/js/camera.js"
     ,"/js/scene.js"
+
+    
+    ,"/js/buffer.js"
+    ,"/js/print.js"
+
     ,"/js/engine.js"
+
     ,"/js/geometry.js"
     ,"/js/mat4.js"
     ,"/js/mesh.js"
@@ -11,6 +17,7 @@ const files=[
     ,"/js/texture.js"
     ,"/js/uniform.js"
     ,"/js/vec3.js"
+
   
     ,"/js/scene/cubes.js"
     ,"/js/scene/triangulation.js"

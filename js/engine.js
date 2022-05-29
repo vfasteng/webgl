@@ -5,6 +5,8 @@
 
     node('engine',async function(canvas){
 
+      
+
       if(canvas===undefined){
         canvas=document.createElement('canvas')
         canvas.width=window.innerWidth
@@ -12,31 +14,51 @@
         document.body.append(canvas)
       }
       const gl = canvas.getContext("webgl2")
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       const engine={
         gl,
         models:[],
       }
+      
+
+
+
+
+    const buffer=node('createRenderBuffer')(gl,512,512)
+
+
+
+    const ceratePrinter=node('ceratePrinter');
+
+    var left=0, width=25
+    var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
+    const print = await ceratePrinter(engine, 1,0.5, -x, -x+wx)
+
+    /*var left=25, width=25
+    var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
+    this.print2 = new Print(this, 1,0.5, -x, -x+wx)
+
+    var left=50, width=25
+    var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
+    this.print3 = new Print(this, 1,0.5, -x, -x+wx)
+
+
+
+    var left=50, width=50
+    var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
+    this.print4 = new Print(this, 0.0,-1.0, -x, -x+wx)*/
+
+
+
+
+
+
+
+
+
+
+
+      
 
 
 
@@ -52,7 +74,19 @@
 
 
 
+      function render(gl, uniforms, frameTime){
 
+        for(const model of engine.models){
+  
+          if(model.animate){
+            model.animate(frameTime)
+          }
+  
+          model.render(gl, uniforms)
+  
+       }
+  
+      }
 
 
 
@@ -77,19 +111,15 @@
         }
 
 
-       node('clearScene')(gl)
+       node('clearSceneAndSetBuffer')(gl,buffer)
+       render(gl, uniforms, frameTime)
 
+       node('clearSceneAndSetBuffer')(gl)
+       render(gl, uniforms, frameTime)
+       
 
-       for(const model of engine.models){
-
-          if(model.animate){
-            model.animate(frameTime)
-          }
-
-            model.render(gl, uniforms)
-
-       }
-
+       uniforms.colorTexture=buffer.color
+       print.render(gl,uniforms)
 
 
        requestAnimationFrame(animate);
@@ -97,7 +127,6 @@
 
     }
     animate(0);
-
 
     return engine
 
