@@ -31,10 +31,10 @@
 
         const shaderProgram=await node('createShaderByName')(gl,"default")
 
-        let geometry=await node('load')("/wp-includes/models/box.json","json")
+        let geometry=await node('load')("/models/box.json","json")
         geometry=node('fixGeometry')(geometry)
 
-        const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")
+        const diffuseTexture=node('loadTexture')(gl,"/images/box.webp")
 
         const meshes=[]
 

@@ -98,7 +98,7 @@ module.exports=async function(source){
           }
           sources[file]=shader
     
-          fs.writeFileSync('./public/shaders-min/'+file,shader)
+          fs.writeFileSync('./dist/shaders-min/'+file,shader)
         }
         /*let buffer=JSON.stringify(sources)
         buffer=Uint8Array.from(Array.from(buffer).map(letter => letter.charCodeAt(0)));
@@ -214,7 +214,7 @@ source=source.replace(/gl\.[a-zA-Z0-9\_\-]+/gm,match=>{
 
 
 
-var mathes=source.match(new RegExp('([\\ \\(\\,\\[\\=\\-\\+\/\\*\\^\\.\\:\\!\\\']{1})([a-zA-Z\_]{1}[a-zA-Z0-9\_\-]+)(?![a-zA-Z0-9]{1})','gm'))
+var mathes=source.match(new RegExp('([\\ \\(\\,\\[\\=\\-\\+\/\\*\\^\\.\\:\\!\\\']{1})([a-zA-Z\\_]{1}[a-zA-Z0-9\\_\\-]+)(?![a-zA-Z0-9]{1})','gm'))??[]
 mathes=mathes.map(m=>m.substring(1))
 const names=[]
 mathes.map(m=>{

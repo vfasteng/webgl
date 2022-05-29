@@ -5,6 +5,7 @@ const app = express()
 
 app.use(express.static('public'))
 app.use('/shaders',express.static('shaders'))
+app.use('/script',express.static('script'))
 app.use(express.static('dist'))
 
 app.get('/', function (req, res) {

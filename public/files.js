@@ -1,29 +1,29 @@
 const files=[
-    "/script/node.script"
-    ,"/script/common.script"
-    ,"/script/camera.script"
-    ,"/script/scene.script"
+    "/script/node.js"
+    ,"/script/common.js"
+    ,"/script/camera.js"
+    ,"/script/scene.js"
 
     
-    ,"/script/buffer.script"
-    ,"/script/print.script"
+    ,"/script/buffer.js"
+    ,"/script/print.js"
 
-    ,"/script/engine.script"
+    ,"/script/engine.js"
 
-    ,"/script/geometry.script"
-    ,"/script/mat4.script"
-    ,"/script/mesh.script"
-    ,"/script/shader.script"
-    ,"/script/texture.script"
-    ,"/script/uniform.script"
-    ,"/script/vec3.script"
+    ,"/script/geometry.js"
+    ,"/script/mat4.js"
+    ,"/script/mesh.js"
+    ,"/script/shader.js"
+    ,"/script/texture.js"
+    ,"/script/uniform.js"
+    ,"/script/vec3.js"
 
   
-    ,"/script/scene/cubes.script"
-    ,"/script/scene/triangulation.script"
-    ,"/script/scene/render2d.script"
+    ,"/script/scene/cubes.js"
+    ,"/script/scene/triangulation.js"
+    ,"/script/scene/render2d.js"
   
-    ,"/script/index.script"
+    ,"/script/index.js"
 ]
 
 try{
