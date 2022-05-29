@@ -13,15 +13,15 @@
 
         
 
-        const positions=[]
+        const points=[]
         for(let i=0;i<20;i++){
-            positions.push(...[Math.random(),Math.random()])
+            points.push({point:[Math.random(),Math.random(),0]})
         }
 
 
         //const trianglesCount=(points.length/3)-2
 
-        console.log('positions',positions)
+        console.log('points',points)
 
         /*let len=1000000;
         let pointSh
@@ -33,9 +33,10 @@
                 pointSh=point
             }
         }*/
+        const triangles=[];
 
-        /*function pairTriangle(point1){
-            let triagle=[];
+        function pairTriangle(point1){
+            let triagles=[];
 
             for(const point of points){
                 const sub=vec3.subtract([],point.point,point1.point);
@@ -44,35 +45,43 @@
             let len=100000
             let point2
             let point3
+            let point4
             for(const point of points){
                 if(point!==point1){
                     if(len>point.len){
                         len=point.len;
+                        point4=point3;
                         point3=point2;
                         point2=point;
                     }
                 }
             }
 
-            triagle=[point1,point2,point3];
+            if(point1&&point2&&point3){
+                triagles.push([point1,point2,point3])
+            }
+            if(point2&&point4&&point3){
+                triagles.push([point2,point4,point3])
+            }
 
-            return triagle;
-        }*/
-        /*const triangles=[];
+
+            return triagles;
+        }
         
         for(const point of points){
-            const triangle=pairTriangle(point)
-
-            triangles.push(triangle);
-        }*/
+            const triang=pairTriangle(point)
+            if(triang.length){
+                triangles.push(...triang);
+            }
+        }
         //var toProcess = earcut.flatten(positions);
         //var result = earcut(toProcess.vertices, toProcess.holes, toProcess.dimensions);
-        //const verts=[]
-        //for(const trian of triangles){
-        //    verts.push(...trian)
-        //}
-        const indices = earcut(positions,null,2);//earcut(positions,[4]);
-        console.log('indices',indices)
+        const positions=[]
+        for(const trian of triangles){
+            positions.push(...trian)
+        }
+        //const indices = earcut(positions,null,2);//earcut(positions,[4]);
+        //console.log('indices',indices)
         //const positions=[]
         //for(const p of poly){
         //    positions.push(...triangles[p])
@@ -86,7 +95,7 @@
             //const positions=[]
             //points.map(pos=>positions.push(...pos.point))
 
-            let geometry={positions,indices}
+            let geometry={positions}
             
             geometry=node('fixGeometry')(geometry)
 
@@ -96,14 +105,14 @@
 
             const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
 
-            //mesh.mode=gl.POINTS;
+            mesh.mode=gl.POINTS;
 
             engine.models.push(mesh)
         }
 
 
 
-        /*{
+        {
             const tpositions=[]
             triangles.map(triangle=>triangle.map(pos=>tpositions.push(...pos.point)))
 
@@ -120,7 +129,7 @@
             //tmesh.mode=gl.LINES;
 
             engine.models.push(tmesh)
-        }*/
+        }
 
 
 

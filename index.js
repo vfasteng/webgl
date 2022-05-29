@@ -708,11 +708,17 @@ function node(param,value){
               model:this.matrix(),
             })
           
-            
+          if(this.geometry.indices){
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.indices);
 
             gl.drawElements(this.mode, this.geometry.indices.length, gl.UNSIGNED_SHORT, 0);
-
+          }else{
+            let count=this.geometry.positions.length/3
+            //if(this.mode===gl.POINTS){
+            //  count=this.geometry.positions.length/3
+            //}
+            gl.drawArrays(this.mode, 0, count);
+          }
         }
       }
 
@@ -912,6 +918,27 @@ function node(param,value){
           return [x,y,z]
         },
 
+        long(a){
+          let x = a[0];
+          let y = a[1];
+          let z = a[2];
+          return Math.hypot(x, y, z);
+        },
+
+        add(out, a, b) {
+          out[0] = a[0] + b[0];
+          out[1] = a[1] + b[1];
+          out[2] = a[2] + b[2];
+          return out;
+        },
+        
+        subtract(out, a, b) {
+          out[0] = a[0] - b[0];
+          out[1] = a[1] - b[1];
+          out[2] = a[2] - b[2];
+          return out;
+        }
+
     })
 
 
@@ -1032,36 +1059,123 @@ function node(param,value){
 
         
 
-        const positions=[]
-        for(let i=0;i<4;i++){
-            positions.push(...[Math.random(),Math.random(),0])
+        const points=[]
+        for(let i=0;i<20;i++){
+            points.push({point:[Math.random(),Math.random(),0]})
         }
 
 
-        const trianglesCount=(positions.length/3)-2
+        //const trianglesCount=(points.length/3)-2
 
-        console.log('trianglesCount',trianglesCount)
+        console.log('points',points)
 
-        const indices=[]
-        indices.push(0,1,2, 1,3,2)
+        /*let len=1000000;
+        let pointSh
+        for(const point of points){
+            const leng=vec3.long(point.point);
+            point.length=leng;
+            if(leng<len){
+                len=leng;
+                pointSh=point
+            }
+        }*/
+        const triangles=[];
+
+        function pairTriangle(point1){
+            let triagles=[];
+
+            for(const point of points){
+                const sub=vec3.subtract([],point.point,point1.point);
+                point.len=vec3.long(sub);
+            }
+            let len=100000
+            let point2
+            let point3
+            let point4
+            for(const point of points){
+                if(point!==point1){
+                    if(len>point.len){
+                        len=point.len;
+                        point4=point3;
+                        point3=point2;
+                        point2=point;
+                    }
+                }
+            }
+
+            if(point1&&point2&&point3){
+                triagles.push([point1,point2,point3])
+            }
+            if(point2&&point4&&point3){
+                triagles.push([point2,point4,point3])
+            }
 
 
+            return triagles;
+        }
+        
+        for(const point of points){
+            const triang=pairTriangle(point)
+            if(triang.length){
+                triangles.push(...triang);
+            }
+        }
+        //var toProcess = earcut.flatten(positions);
+        //var result = earcut(toProcess.vertices, toProcess.holes, toProcess.dimensions);
+        const positions=[]
+        for(const trian of triangles){
+            positions.push(...trian)
+        }
+        //const indices = earcut(positions,null,2);//earcut(positions,[4]);
+        //console.log('indices',indices)
+        //const positions=[]
+        //for(const p of poly){
+        //    positions.push(...triangles[p])
+        //}
+        //const indices=poly
 
         const shaderProgram=await node('createShaderByName')(gl,"default")
+    
+        {
 
-        let geometry={positions,indices}
-        
-        geometry=node('fixGeometry')(geometry)
+            //const positions=[]
+            //points.map(pos=>positions.push(...pos.point))
 
-        //const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")
+            let geometry={positions}
+            
+            geometry=node('fixGeometry')(geometry)
 
-        
+            //const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")
 
-        const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+            
+
+            const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+
+            mesh.mode=gl.POINTS;
+
+            engine.models.push(mesh)
+        }
 
 
 
-        engine.models.push(mesh)
+        {
+            const tpositions=[]
+            triangles.map(triangle=>triangle.map(pos=>tpositions.push(...pos.point)))
+
+            let tgeometry={positions:tpositions}
+            
+            tgeometry=node('fixGeometry')(tgeometry)
+
+            //const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")
+
+            
+
+            const tmesh=node('createMeshFromGeometry')(gl, tgeometry, shaderProgram)
+
+            //tmesh.mode=gl.LINES;
+
+            engine.models.push(tmesh)
+        }
 
 
 
@@ -1154,7 +1268,11 @@ function node(param,value){
     node('init',function(){
 
 
-        node('Render2DScene')()
+        //node('Render2DScene')()
+
+        //node('TriangulationScene')()
+
+        node('CubesScene')()
 
 
     })
