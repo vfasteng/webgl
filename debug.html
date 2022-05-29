@@ -14,6 +14,13 @@ canvas {
     </head>
 <body></body>
 
-<script src="/test.min.js"></script>
+<script src="/files.js"></script>
+<script>
+    for(const file of files){
+        const script=document.createElement('script');
+        script.src=file;
+        document.body.append(script);
+    }
+</script>
 
 </html>

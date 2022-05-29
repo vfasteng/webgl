@@ -41,9 +41,11 @@ function node(param,value){
       const mat4=node('mat4')
     const vec3=node('vec3')
 
+    const aspect=gl.canvas.width / gl.canvas.height;
+
         const camera={
             fov: 5*9,
-            aspect: gl.canvas.width / gl.canvas.height,
+            aspect,
             near: 1/1000,
             far: 1000,
 
@@ -563,13 +565,13 @@ function node(param,value){
       
       //perspectiveNO
       perspective(out, fovy, aspect, near, far) {
-        const f = 1.0 / Math.tan(fovy / 2);
-        out[0] = f / aspect;
+        const fa = 1.0 / Math.tan(fovy / 2);
+        out[0] = fa / aspect;
         out[1] = 0;
         out[2] = 0;
         out[3] = 0;
         out[4] = 0;
-        out[5] = f;
+        out[5] = fa;
         out[6] = 0;
         out[7] = 0;
         out[8] = 0;

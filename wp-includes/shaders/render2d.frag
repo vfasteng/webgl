@@ -2,19 +2,19 @@
 
 precision mediump float;
 
-//uniform sampler2D diffuseTexture;
+//uniform sampler2D B;
 
-//varying vec3 vColor;
-//in vec3 vLighting;
-in vec2 vTexCoords;
+//varying vec3 C;
+//in vec3 D;
+in vec2 E;
 
 out vec4 outColor;
 
 void main(void) {
 
-    //vec4 diffuseColor = texture(diffuseTexture, vTexCoords);
-    vec3 color=vec3(vTexCoords.x,vTexCoords.y,0.5);
+    //vec4 diffuseColor = texture(B, E);
+    vec3 L=vec3(E.x,E.y,0.5);
 
-    outColor = vec4(color, 1.0);
+    outColor = vec4(L, 1.0);
 
 }

@@ -306,13 +306,13 @@
       
       //perspectiveNO
       perspective(out, fovy, aspect, near, far) {
-        const f = 1.0 / Math.tan(fovy / 2);
-        out[0] = f / aspect;
+        const fa = 1.0 / Math.tan(fovy / 2);
+        out[0] = fa / aspect;
         out[1] = 0;
         out[2] = 0;
         out[3] = 0;
         out[4] = 0;
-        out[5] = f;
+        out[5] = fa;
         out[6] = 0;
         out[7] = 0;
         out[8] = 0;

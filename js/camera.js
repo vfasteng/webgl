@@ -7,9 +7,11 @@
       const mat4=node('mat4')
     const vec3=node('vec3')
 
+    const aspect=gl.canvas.width / gl.canvas.height;
+
         const camera={
             fov: 5*9,
-            aspect: gl.canvas.width / gl.canvas.height,
+            aspect,
             near: 1/1000,
             far: 1000,
 

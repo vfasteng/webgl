@@ -1,35 +1,35 @@
 #version 300 es
 
-in vec3 positions;
-in vec3 normals;
-in vec2 texcoords;
+in vec3 F;
+in vec3 G;
+in vec2 H;
 
-uniform mat4 projection;
-uniform mat4 camera;
-uniform mat4 model;
+uniform mat4 I;
+uniform mat4 J;
+uniform mat4 K;
 
-//attribute vec3 color;
+//attribute vec3 L;
 
-//varying vec3 vColor;
-out vec3 vLighting;
-out vec2 vTexCoords;
+//varying vec3 C;
+out vec3 D;
+out vec2 E;
 
 void main(void) {
     gl_PointSize = 5.0;
     //glLineWidth = 3.0;
 
-    gl_Position = projection*camera*model*vec4(positions, 1.);
+    gl_Position = I*J*K*vec4(F, 1.);
 
-    //vColor = color;
-    vTexCoords=texcoords;
+    //C = L;
+    E=H;
 
-    vec3 ambientLight = vec3(0.3, 0.3, 0.3);
-    vec3 directionalLightColor = vec3(0.4, 0.4, 0.4);
-    vec3 directionalVector = normalize((camera*vec4(1.0)).xyz);
+    vec3 M = vec3(0.3, 0.3, 0.3);
+    vec3 N = vec3(0.4, 0.4, 0.4);
+    vec3 O = normalize((J*vec4(1.0)).xyz);
 
-    vec4 transformedNormal = model * vec4(normals, 1.0);
+    vec4 transformedNormal = K * vec4(G, 1.0);
 
-    float directional = max(dot(transformedNormal.xyz, directionalVector), 0.0);
-    vLighting = ambientLight + (directionalLightColor * directional);
+    float P = max(dot(transformedNormal.xyz, O), 0.0);
+    D = M + (N * P);
 
 }
