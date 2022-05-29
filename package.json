@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/pawelworzala/webgl#readme",
   "dependencies": {
+    "express": "^4.18.1",
+    "path": "^0.12.7",
     "terser": "^5.13.1"
   }
 }

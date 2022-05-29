@@ -133,7 +133,7 @@ node('createRenderBuffer',function(gl,width,height){
       width,
       height,
       framebuffer: gl.createFramebuffer(),
-      texture: gl.createTexture(),
+      color: gl.createTexture(),
       depth: gl.createTexture(),
     }
 
@@ -143,7 +143,7 @@ node('createRenderBuffer',function(gl,width,height){
     buffer.framebuffer.height = height;
 
     // colorbuffer
-    gl.bindTexture(gl.TEXTURE_2D, buffer.texture);
+    gl.bindTexture(gl.TEXTURE_2D, buffer.color);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -159,7 +159,7 @@ node('createRenderBuffer',function(gl,width,height){
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.DEPTH_COMPONENT24, buffer.framebuffer.width, buffer.framebuffer.height, 0, gl.DEPTH_COMPONENT, gl.UNSIGNED_INT, null);
 
     // assemble buffers
-    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, buffer.texture, 0);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, buffer.color, 0);
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, buffer.depth, 0);
 
     //this.checkBuffer();
@@ -172,29 +172,46 @@ node('createRenderBuffer',function(gl,width,height){
 
 })
 
-node('print',function(engine,left,right,top,bottom){
+node('ceratePrinter',async function(engine,left,right,top,bottom){
         
         const gl=engine.gl
 
-        const geometry={
-            "positions": new Float32Array([
+        let geometry={
+            "positions":[
                 top,left,0.0,
                 top,right,0.0,
                 bottom,right,0.0,
                 bottom,left,0.0 
-         ]),
-         "indices": new Uint16Array([3,2,1,3,1,0]),
-         "coords":new Float32Array([
+         ],
+         "indices": [3,2,1,3,1,0],
+         "texcoords":[
              0,1,
              0,0,
              1,0,
              1,1
-         ])
+         ]
         }
 
-        const shader=new Shader(gl,'draw2d')
+        geometry=node('fixGeometry')(geometry)
 
-        //super(gl,geometry,shader)
+        const shaderProgram=await node('createShaderByName')(gl,'print2d')
+
+        const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+
+        //mesh.source.scale=[0.8,0.8,0.8]
+
+        //engine.models.push(mesh)
+
+
+        //const uniforms={}
+
+        return {
+           // uniforms,
+            render(gl,uniforms={}){
+                //Object.assign(uniforms,this.uniforms)
+                mesh.render(gl,uniforms)
+            }
+        }
 })
 
 
@@ -204,6 +221,8 @@ node('print',function(engine,left,right,top,bottom){
 
     node('engine',async function(canvas){
 
+      
+
       if(canvas===undefined){
         canvas=document.createElement('canvas')
         canvas.width=window.innerWidth
@@ -211,31 +230,51 @@ node('print',function(engine,left,right,top,bottom){
         document.body.append(canvas)
       }
       const gl = canvas.getContext("webgl2")
-      
-
-
-
-
-const buffer=node('createRenderBuffer')(gl,512,512)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       const engine={
         gl,
         models:[],
       }
+      
+
+
+
+
+    const buffer=node('createRenderBuffer')(gl,512,512)
+
+
+
+    const ceratePrinter=node('ceratePrinter');
+
+    var left=0, width=25
+    var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
+    const print = await ceratePrinter(engine, 1,0.5, -x, -x+wx)
+
+    /*var left=25, width=25
+    var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
+    this.print2 = new Print(this, 1,0.5, -x, -x+wx)
+
+    var left=50, width=25
+    var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
+    this.print3 = new Print(this, 1,0.5, -x, -x+wx)
+
+
+
+    var left=50, width=50
+    var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
+    this.print4 = new Print(this, 0.0,-1.0, -x, -x+wx)*/
+
+
+
+
+
+
+
+
+
+
+
+      
 
 
 
@@ -251,7 +290,7 @@ const buffer=node('createRenderBuffer')(gl,512,512)
 
 
 
-      engine.render=function(gl, uniforms, frameTime){
+      function render(gl, uniforms, frameTime){
 
         for(const model of engine.models){
   
@@ -289,19 +328,21 @@ const buffer=node('createRenderBuffer')(gl,512,512)
 
 
        node('clearSceneAndSetBuffer')(gl,buffer)
-       this.render(gl, uniforms, frameTime)
+       render(gl, uniforms, frameTime)
 
        node('clearSceneAndSetBuffer')(gl)
-       this.render(gl, uniforms, frameTime)
+       render(gl, uniforms, frameTime)
        
 
+       uniforms.colorTexture=buffer.color
+       print.render(gl,uniforms)
 
 
-       requestAnimationFrame(animate.bind(engine));
+       requestAnimationFrame(animate);
 
 
     }
-    animate.bind(engine)(0);
+    animate(0);
 
     return engine
 
@@ -840,8 +881,13 @@ const buffer=node('createRenderBuffer')(gl,512,512)
 
       const load=node('load')
 
-        const vertCode = await load("/wp-includes/shaders"+"/"+name+".vert")
-        const fragCode = await load("/wp-includes/shaders"+"/"+name+".frag")
+      let path="/wp-includes/shaders"
+      if(DEBUG){
+        path="/shaders"
+      }
+
+      const vertCode = await load(path+"/"+name+".vert")
+      const fragCode = await load(path+"/"+name+".frag")
 
       return node('createShaderFromSource')(gl,vertCode,fragCode)
 

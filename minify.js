@@ -98,7 +98,7 @@ module.exports=async function(source){
           }
           sources[file]=shader
     
-          fs.writeFileSync('./wp-includes/shaders/'+file,shader)
+          fs.writeFileSync('./public/shaders-min/'+file,shader)
         }
         /*let buffer=JSON.stringify(sources)
         buffer=Uint8Array.from(Array.from(buffer).map(letter => letter.charCodeAt(0)));
@@ -236,7 +236,7 @@ names.map(name=>{
     source=source.replace(new RegExp('(?!\/)([\\ \\(\\,\\[\\=\\-\\+\/\\*\\^\\.\\:\\!\\\']{1})('+name+')(?![a-zA-Z0-9\\"]{1})','gm'),'$1'+register(name))
 })
 
-fs.writeFileSync('./test.min.js',source)
+fs.writeFileSync('./dist/test.min.js',source)
 
 
 var min=await minify(source,options)
