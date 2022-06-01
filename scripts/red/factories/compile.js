@@ -1,6 +1,6 @@
 {
 
-    const directives=node('directives')
+    const Directives=node('Directives')
 
     function parse(scope, elem, source, callback){
         //let matches = [];
@@ -43,7 +43,7 @@
     //const parse=node('parse')
     
     function compile(element, scope){
-        /*const directive = (elem) => {
+        const directive = (elem) => {
             const attributes = elem.getAttributeNames ? elem.getAttributeNames() : [];
             attributes.forEach((attr) => {
                 const attrValue = elem.getAttribute(attr);
@@ -62,8 +62,8 @@
                     //return true
                 }
             })
-        };*/
-        const each = (element) => {
+        };
+        function each(element){
             const el = element
             const elem = element
             if(el===undefined){
@@ -72,11 +72,11 @@
             /*if((!elem)||(typeof elem==="string")){
                 return
             }*/
-            //if (elem.nodeName !== "#text") {
-               // directive(elem)
-                    //return
-                //}
-            //}
+            if (elem.nodeName !== "#text") {
+                directive(elem)
+                return
+            }
+            
             if (elem.childNodes.length === 1) {
                 parse(scope,elem, elem.innerHTML, (txt) => {
                     elem.innerHTML = txt;
@@ -89,7 +89,7 @@
         each(element);
 
 
-        for(const directive of directives){
+        /*for(const directive of directives){
             const elements=element.querySelectorAll("[red-"+directive.selector+"]")
 
             for(const element of elements){
@@ -99,14 +99,17 @@
                 directive.callback(element,scope,attr)
 
             }
+        */
         }
 
-    }
+
+    
     
     node('compile',compile)
     //node('Directives',Directives)
     //node('parse',parse)
     
 
-}
 
+
+}

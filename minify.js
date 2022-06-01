@@ -98,7 +98,7 @@ module.exports=async function(source){
           }
           sources[file]=shader
     
-          fs.writeFileSync('./shaders-min/'+file,shader)
+          fs.writeFileSync('./shaders.min/'+file,shader)
         }
         /*let buffer=JSON.stringify(sources)
         buffer=Uint8Array.from(Array.from(buffer).map(letter => letter.charCodeAt(0)));

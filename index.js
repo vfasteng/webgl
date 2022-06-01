@@ -8,15 +8,15 @@ function node(param,value){
 
 {
 
-    const directives=[]
+    const Directives=[]
 
-    node('directives',directives)
+    node('Directives',Directives)
 
 }
 
 {
 
-    const directives=node('directives')
+    const Directives=node('Directives')
 
     function parse(scope, elem, source, callback){
         //let matches = [];
@@ -59,7 +59,7 @@ function node(param,value){
     //const parse=node('parse')
     
     function compile(element, scope){
-        /*const directive = (elem) => {
+        const directive = (elem) => {
             const attributes = elem.getAttributeNames ? elem.getAttributeNames() : [];
             attributes.forEach((attr) => {
                 const attrValue = elem.getAttribute(attr);
@@ -78,8 +78,8 @@ function node(param,value){
                     //return true
                 }
             })
-        };*/
-        const each = (element) => {
+        };
+        function each(element){
             const el = element
             const elem = element
             if(el===undefined){
@@ -88,11 +88,11 @@ function node(param,value){
             /*if((!elem)||(typeof elem==="string")){
                 return
             }*/
-            //if (elem.nodeName !== "#text") {
-               // directive(elem)
-                    //return
-                //}
-            //}
+            if (elem.nodeName !== "#text") {
+                directive(elem)
+                return
+            }
+            
             if (elem.childNodes.length === 1) {
                 parse(scope,elem, elem.innerHTML, (txt) => {
                     elem.innerHTML = txt;
@@ -105,7 +105,7 @@ function node(param,value){
         each(element);
 
 
-        for(const directive of directives){
+        /*for(const directive of directives){
             const elements=element.querySelectorAll("[red-"+directive.selector+"]")
 
             for(const element of elements){
@@ -115,18 +115,20 @@ function node(param,value){
                 directive.callback(element,scope,attr)
 
             }
+        */
         }
 
-    }
+
+    
     
     node('compile',compile)
     //node('Directives',Directives)
     //node('parse',parse)
     
 
+
+
 }
-
-
 
 {
 
@@ -206,34 +208,22 @@ function node(param,value){
 
 {
 
-
-    const directives=node('directives')
-
-
-
-    directives.push({selector:"click",callback:click})
-
-
-    function click(element,scope,attr){
-
-
-        //console.log(element,scope)
-        //node('registerDirective')(element)
-
-        element.addEventListener("click",function(event){
-
-
-            (function(){
-                eval(attr)
-            }).bind(scope)()
-
-        })
-
-
+    const Directives=node('Directives')
+    
+    function click(element, scope, attr){
+        element.addEventListener("click",(event) => {
+            return (function (attribute) {
+                return eval(attribute)
+            }.bind(scope))(attr)
+        });
     }
-
+    
+    Directives["click"]=click
+    
 
 }
+
+
 
 {
 
@@ -391,8 +381,8 @@ function node(param,value){
     })
 
 
-    node('TRS',function(translation=[0,0,0], rotation=[0,0,0], scale=[1,1,1]){
-        return {translation, rotation, scale}
+    node('TRS',function( translation =[0,0,0], rotation=[0,0,0], scale=[1,1,1]){
+        return { translation , rotation, scale}
     })
 
 

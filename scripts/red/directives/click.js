@@ -1,30 +1,17 @@
 {
 
-
-    const directives=node('directives')
-
-
-
-    directives.push({selector:"click",callback:click})
-
-
-    function click(element,scope,attr){
-
-
-        //console.log(element,scope)
-        //node('registerDirective')(element)
-
-        element.addEventListener("click",function(event){
-
-
-            (function(){
-                eval(attr)
-            }).bind(scope)()
-
-        })
-
-
+    const Directives=node('Directives')
+    
+    function click(element, scope, attr){
+        element.addEventListener("click",(event) => {
+            return (function (attribute) {
+                return eval(attribute)
+            }.bind(scope))(attr)
+        });
     }
-
+    
+    Directives["click"]=click
+    
 
 }
+

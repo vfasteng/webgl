@@ -1,7 +1,7 @@
 {
 
-    const directives=[]
+    const Directives=[]
 
-    node('directives',directives)
+    node('Directives',Directives)
 
 }

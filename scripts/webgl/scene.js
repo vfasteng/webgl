@@ -88,8 +88,8 @@
     })
 
 
-    node('TRS',function(translation=[0,0,0], rotation=[0,0,0], scale=[1,1,1]){
-        return {translation, rotation, scale}
+    node('TRS',function( translation =[0,0,0], rotation=[0,0,0], scale=[1,1,1]){
+        return { translation , rotation, scale}
     })
 
 

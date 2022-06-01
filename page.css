@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 
-body{
+body {
     margin: 0;
+    overflow: hidden;
 }
 
 body,
@@ -35,6 +36,9 @@ header{
     position: absolute;
     bottom: 0;
     font-size: 0.8em;
+    transform: scale(0.795);
+    margin-left: -32px;
+    margin-bottom: -24px;
 }
 
 .card h1 {
