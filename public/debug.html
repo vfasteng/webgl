@@ -1,28 +1,29 @@
 <!doctype html>
 <html>
-    <head>
-        <style>
-canvas {
-    position: fixed;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-}
-        </style>
-    </head>
-<body></body>
+    <head></head>
+<body>
 
-<script src="/files.js"></script>
-<script>
-    const DEBUG=true;
-    
-    for(const file of files){
-        const script=document.createElement('script');
-        script.src=file;
-        document.body.append(script);
-    }
-</script>
+    <header>
+        <nav>
+            <a red-click="this.loadScene()">scene</a>
+        </nav>
+    </header>
+
+
+    <link href="/page.css" rel="stylesheet">
+
+
+
+
+    <script src="/files.js"></script>
+    <script>
+        const DEBUG=true;
+        
+        for(const file of files){
+            const script=document.createElement('script');
+            script.src=file;
+            document.body.append(script);
+        }
+    </script>
 
 </html>

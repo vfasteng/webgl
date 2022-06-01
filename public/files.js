@@ -1,35 +1,52 @@
 const files=[
-    "/script/node.js"
-    ,"/script/common.js"
-    ,"/script/camera.js"
-    ,"/script/scene.js"
+
+    "/scripts/node.js"
+
+    ,"/scripts/red/init.js"
+
+    ,"/scripts/red/factories/compile.js"
+    ,"/scripts/red/factories/http.js"
+    ,"/scripts/red/factories/watch.js"
+    ,"/scripts/red/factories/window.js"
+
+    ,"/scripts/red/directives/click.js"
+
+  
+    ,"/scripts/webgl/common.js"
+    ,"/scripts/webgl/camera.js"
+    ,"/scripts/webgl/scene.js"
 
     
-    ,"/script/buffer.js"
+    ,"/scripts/webgl/buffer.js"
 
-    ,"/script/engine.js"
+    ,"/scripts/webgl/engine.js"
 
-    ,"/script/geometry.js"
-    ,"/script/mat4.js"
-    ,"/script/mesh.js"
-    ,"/script/shader.js"
-    ,"/script/texture.js"
-    ,"/script/uniform.js"
-    ,"/script/vec3.js"
+    ,"/scripts/webgl/geometry.js"
+    ,"/scripts/webgl/mat4.js"
+    ,"/scripts/webgl/mesh.js"
+    ,"/scripts/webgl/shader.js"
+    ,"/scripts/webgl/texture.js"
+    ,"/scripts/webgl/uniform.js"
+    ,"/scripts/webgl/vec3.js"
 
-    ,"/script/render2d.js"
+    ,"/scripts/webgl/render2d.js"
 
-    ,"/script/gltf/model.js"
-    ,"/script/gltf/anim.js"
-    ,"/script/gltf/skin.js"
+    ,"/scripts/webgl/gltf/model.js"
+    ,"/scripts/webgl/gltf/anim.js"
+    ,"/scripts/webgl/gltf/skin.js"
 
   
-    ,"/script/scene/cubes.js"
-    ,"/script/scene/triangulation.js"
-    ,"/script/scene/render2d.js"
-    ,"/script/scene/modelGLTF.js"
+    ,"/scripts/webgl/scene/cubes.js"
+    ,"/scripts/webgl/scene/triangulation.js"
+    ,"/scripts/webgl/scene/render2d.js"
+    ,"/scripts/webgl/scene/modelGLTF.js"
+
+
+
+
+
   
-    ,"/script/index.js"
+    ,"/scripts/index.js"
 ]
 
 try{
