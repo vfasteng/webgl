@@ -56,4 +56,27 @@
     })
 
 
+    node('assignScene',function(target){
+
+        node('assign')(target,{
+
+            render(...args){
+
+                if(this.children){
+                    for(const child of this.children){
+                        child.render(...args)
+                    }
+                }
+
+                if(this.draw){
+                    this.draw(...args)
+                }
+
+            }
+
+        })
+
+    })
+
+
 }

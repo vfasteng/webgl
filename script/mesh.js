@@ -92,7 +92,7 @@
         mode:gl.TRIANGLES,
         uniforms:{},
 
-        render(gl,uniforms,frameTime,shader){
+        draw(gl,uniforms,frameTime,shader){
 
             shader=shader ?? this.shader
 
@@ -126,6 +126,7 @@
       }
 
       node('assignSource')(mesh)
+      node('assignScene')(mesh)
 
       return mesh
 
