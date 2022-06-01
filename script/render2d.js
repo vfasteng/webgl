@@ -27,10 +27,9 @@
 
         const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
 
-        mesh.source.scale=[0.5,0.5,0.5]
-        mesh.source.translation=[-0.5,0.5,0]
+        
 
-        const uniforms={
+        /*const uniforms={
             //colorTexture:diffuseTexture,
         }
 
@@ -42,7 +41,7 @@
                 //mesh.uniforms=this.uniforms;
                 mesh.render(gl,uniforms)
             }
-        }
+        }*/
 
         //mesh.uniforms.colorTexture=colorTexture
 
@@ -51,7 +50,7 @@
 
 
 
-        return render
+        return mesh
 
 
 

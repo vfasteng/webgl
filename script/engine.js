@@ -1,18 +1,31 @@
-
-/*glarr*/
-
 {
-
-    node('engine',async function(canvas){
-
-      
-
-      if(canvas===undefined){
+  
+    node('createCanvas',function(){
         canvas=document.createElement('canvas')
         canvas.width=window.innerWidth
         canvas.height=window.innerHeight
         document.body.append(canvas)
-      }
+        return canvas
+    })
+
+}
+
+{
+
+
+
+
+    node('engine',async function(canvas=node('createCanvas')() ){
+
+      
+
+      //if(canvas===undefined){
+        /*canvas=document.createElement('canvas')
+        canvas.width=window.innerWidth
+        canvas.height=window.innerHeight
+        document.body.append(canvas)*/
+        //canvas=node('createCanvas')()
+      //}
       const gl = canvas.getContext("webgl2")
 
       const engine={
@@ -52,6 +65,9 @@
     //const colorTexture=node('loadTexture')(gl,"/images/box.webp")
 
       const render2d=await node('Render2D')(engine)
+      render2d.source.scale=[0.5,0.5,0.5]
+      render2d.source.translation=[-0.5,0.5,0]
+
       ///render2d.uniforms.colorTexture=diffuseTexture
       //engine.models.push(render2d)
 
