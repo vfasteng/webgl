@@ -13,7 +13,7 @@
 
         const pointer=buffer ? buffer.framebuffer:null;
 
-        //gl.bindFramebuffer(gl.FRAMEBUFFER, pointer);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, pointer);
 
         if(buffer){
             gl.viewport(0.0, 0.0, buffer.width, buffer.height);
