@@ -24,7 +24,7 @@
 
 
 
-    //const buffer=node('createRenderBuffer')(gl,512,512)
+    const buffer=node('createRenderBuffer')(gl,512,512)
 
 
 
@@ -51,7 +51,7 @@
 
     const colorTexture=node('loadTexture')(gl,"/images/box.webp")
 
-      const render2d=await node('Render2D')(engine,colorTexture)
+      const render2d=await node('Render2D')(engine)
       ///render2d.uniforms.colorTexture=diffuseTexture
       //engine.models.push(render2d)
 
@@ -61,7 +61,11 @@
 
 
 
-      
+    gl.enable(gl.DEPTH_TEST);
+    //gl.depthFunc(gl.LEQUAL);
+
+    //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    //gl.enable(gl.BLEND);
 
 
 
@@ -114,15 +118,16 @@
         }
 
 
-      //node('clearSceneAndSetBuffer')(gl,buffer)
-      //render(gl, uniforms, frameTime)
+      node('clearSceneAndSetBuffer')(gl,buffer)
+      render(gl, uniforms, frameTime)
 
       node('clearSceneAndSetBuffer')(gl)
       render(gl, uniforms, frameTime)
        
 
-      //uniforms.colorTexture=diffuseTexture
+      render2d.uniforms.colorTexture=colorTexture
       //print.render(gl,uniforms)
+      render2d.render(gl,uniforms)
 
 
 

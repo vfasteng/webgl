@@ -2,7 +2,7 @@
 
 
 
-    node('Render2D',async function(engine,colorTexture){
+    node('Render2D',async function(engine){
 
 
 
@@ -29,7 +29,7 @@
 
         mesh.source.scale=[0.8,0.8,0.8]
 
-        /*const uniforms={
+        const uniforms={
             //colorTexture:diffuseTexture,
         }
 
@@ -37,19 +37,20 @@
         const render={
             uniforms,
             render(gl,uniforms){
-                Object.assign(uniforms,this.uniforms)
+                //Object.assign(uniforms,this.uniforms)
+                mesh.uniforms=this.uniforms;
                 mesh.render(gl,uniforms)
             }
-        }*/
+        }
 
-        mesh.uniforms.colorTexture=colorTexture
-
-
-        engine.models.push(mesh)
+        //mesh.uniforms.colorTexture=colorTexture
 
 
+        //engine.models.push(render)
 
-        return this
+
+
+        return render
 
 
 
