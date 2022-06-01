@@ -164,6 +164,18 @@
         }
 
 
+        for (const scene of engine.models) {
+          scene.updateWorldMatrix();
+          if(scene.skins){
+            scene.animSkin(delta);
+          }
+        }
+
+      //for(const anim of this.anims){
+      //  anim.bind(this)(delta)
+      //}
+
+
         for(const buffer of engine.buffers){
             node('clearSceneAndSetBuffer')(gl,buffer)
             render(gl, uniforms, frameTime, buffer.shader)

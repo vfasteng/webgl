@@ -70,7 +70,18 @@
                     this.draw(...args)
                 }
 
-            }
+            },
+
+            updateWorldMatrix(parentWorldMatrix=mat4.create()) {
+              
+                this.worldMatrix=this.matrix();
+          
+                mat4.multiply(this.worldMatrix, parentWorldMatrix, this.worldMatrix);
+          
+                for (const child of this.children) {
+                    child.updateWorldMatrix(this.worldMatrix);
+                }
+            },
 
         })
 

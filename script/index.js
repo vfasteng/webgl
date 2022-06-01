@@ -13,7 +13,7 @@
         node('CubesScene')(engine)
 
 
-        //node('StickmanScene')(engine)
+        node('StickmanScene')(engine)
 
 
     })

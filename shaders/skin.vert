@@ -8,7 +8,7 @@ in uvec4 joints;
 
 uniform mat4 projection;
 uniform mat4 view;
-uniform mat4 modelMatrix;
+uniform mat4 model;
 uniform float numJoints;
 
 uniform sampler2D jointTexture;
@@ -34,16 +34,16 @@ void main (void) {
                     getBoneMatrix(joints[2]) * weights[2] +
                     getBoneMatrix(joints[3]) * weights[3];
   
-      gl_Position = projection * view * modelMatrix * skinMatrix* vec4(positions, 1.0);
+      gl_Position = projection * view * model * skinMatrix* vec4(positions, 1.0);
   }else{
-      gl_Position = projection * view * modelMatrix * vec4(positions, 1.0);
+      gl_Position = projection * view * model * vec4(positions, 1.0);
   }
 
-  vNormal = mat3(modelMatrix) * normalize(normals);
+  vNormal = mat3(model) * normalize(normals);
 
   vCoord=texcoords;
 
-  depth = abs(length((mat3(modelMatrix) * positions)-camera));
+  depth = abs(length((mat3(model) * positions)-camera));
 
   depth=8.5/depth;
 }

@@ -112,7 +112,7 @@
             uniformSetter.set(uniforms)
             uniformSetter.set(this.uniforms??{})
             uniformSetter.set({
-              model:this.matrix(),
+              model:this.worldMatrix??this.matrix(),
             })
           
           if(this.geometry.indices){
