@@ -3,6 +3,7 @@
 precision mediump float;
 
 uniform sampler2D colorTexture;
+uniform sampler2D depthTexture;
 
 //varying vec3 vColor;
 //in vec3 vLighting;
@@ -12,9 +13,10 @@ out vec4 outColor;
 
 void main(void) {
 
-    vec4 color = texture(colorTexture, vTexCoords);
-    //vec3 color=vec3(vTexCoords.x,vTexCoords.y,0.5);
+    //float color = texture(depthTexture, vTexCoords).z;
+    vec3 color = texture(colorTexture, vTexCoords).rgb;
+    //vec4 color=vec3(vTexCoords.x,vTexCoords.y,0.5);
 
-    outColor = vec4(color.rgb, 1.0);
+    outColor = vec4(color, 1.0);
 
 }

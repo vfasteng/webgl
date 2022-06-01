@@ -28,6 +28,8 @@
       //}
       const gl = canvas.getContext("webgl2")
 
+      //var ext = gl.getExtension('WEBGL_depth_texture');
+
       const engine={
         gl,
         models:[],
@@ -64,9 +66,20 @@
 
     //const colorTexture=node('loadTexture')(gl,"/images/box.webp")
 
+    engine.renderers=[]
+
       const render2d=await node('Render2D')(engine)
       render2d.source.scale=[0.5,0.5,0.5]
       render2d.source.translation=[-0.5,0.5,0]
+      render2d.uniforms.colorTexture=buffer.color
+      render2d.uniforms.depthTexture=buffer.depth
+      engine.renderers.push(render2d)
+
+      /*const render2d2=await node('Render2D')(engine)
+      render2d2.source.scale=[0.5,0.5,0.5]
+      render2d2.source.translation=[0,0.5,0]
+      render2d2.uniforms.colorTexture=buffer.depth
+      engine.renderers.push(render2d2)*/
 
       ///render2d.uniforms.colorTexture=diffuseTexture
       //engine.models.push(render2d)
@@ -134,16 +147,18 @@
         }
 
 
-      node('clearSceneAndSetBuffer')(gl,buffer)
-      render(gl, uniforms, frameTime)
+        node('clearSceneAndSetBuffer')(gl,buffer)
+        render(gl, uniforms, frameTime)
 
-      node('clearSceneAndSetBuffer')(gl)
-      render(gl, uniforms, frameTime)
-       
+        node('clearSceneAndSetBuffer')(gl)
+        render(gl, uniforms, frameTime)
+        
 
-      render2d.uniforms.colorTexture=buffer.color//colorTexture
-      //print.render(gl,uniforms)
-      render2d.render(gl,uniforms)
+        //render2d.uniforms.colorTexture=buffer.color//colorTexture
+        //print.render(gl,uniforms)
+        for(const render of engine.renderers){
+            render.render(gl,uniforms)
+        }
 
 
 
