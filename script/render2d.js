@@ -25,7 +25,7 @@
         //const diffuseTexture=node('loadTexture')(gl,"/images/box.webp")
         
 
-        const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+        const mesh=node('Mesh')(engine, geometry, shaderProgram, false)
 
         
 

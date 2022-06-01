@@ -33,6 +33,9 @@
       const engine={
         gl,
         models:[],
+        add(scene){
+            this.models.push(scene)
+        }
       }
       
 
@@ -128,6 +131,9 @@
             model.animate(frameTime)
           }
   
+          if(!model.render){
+              console.log('model without render()...', model)
+          }
           model.render(gl, uniforms, frameTime, shader)
   
        }

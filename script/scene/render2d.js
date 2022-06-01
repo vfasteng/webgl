@@ -2,11 +2,11 @@
 
 
 
-    node('Render2DScene',async function(){
+    node('Render2DScene',async function(engine){
 
 
 
-        const engine=await node('engine')()
+        //const engine=await node('engine')()
         const gl=engine.gl
 
 
@@ -25,14 +25,14 @@
         const diffuseTexture=node('loadTexture')(gl,"/images/box.webp")
         
 
-        const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+        const mesh=node('createMeshFromGeometry')(engine, geometry, shaderProgram)
 
         mesh.source.scale=[0.8,0.8,0.8]
 
         mesh.uniforms.colorTexture=diffuseTexture
 
 
-        engine.models.push(mesh)
+        //engine.models.push(mesh)
 
 
 

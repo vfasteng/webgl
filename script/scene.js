@@ -35,11 +35,7 @@
 
         return Object.assign(target,{
 
-            source:{
-                translation:vec3.create(),
-                rotation:vec3.create(),
-                scale:vec3.create(1.0),
-            },
+            source: target.source??node('TRS')(),
             matrix(){
                 const matrix=mat4.create()
                 mat4.translate(matrix, matrix, this.source.translation);
@@ -60,6 +56,8 @@
 
         node('assign')(target,{
 
+            children:[],
+
             render(...args){
 
                 if(this.children){
@@ -76,6 +74,23 @@
 
         })
 
+    })
+
+
+    node('TRS',function(translation=[0,0,0], rotation=[0,0,0], scale=[1,1,1]){
+        return {translation, rotation, scale}
+    })
+
+
+    node('Scene',function(source=node('TRS'),name='scene name'){
+        const scene={name,source,
+            add(scene){
+                this.children.push(scene)
+            }
+        }
+        node('assignSource')(scene)
+        node('assignScene')(scene)
+        return scene
     })
 
 

@@ -2,11 +2,11 @@
 
 
 
-    node('TriangulationScene',async function(){
+    node('TriangulationScene',async function(engine){
 
 
 
-        const engine=await node('engine')()
+        //const engine=await node('engine')()
         const gl=engine.gl
 
 
@@ -103,11 +103,11 @@
 
             
 
-            const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+            const mesh=node('createMeshFromGeometry')(engine, geometry, shaderProgram)
 
             mesh.mode=gl.POINTS;
 
-            engine.models.push(mesh)
+            //engine.models.push(mesh)
         }
 
 

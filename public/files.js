@@ -19,10 +19,15 @@ const files=[
 
     ,"/script/render2d.js"
 
+    ,"/script/gltf/model.js"
+    ,"/script/gltf/anim.js"
+    ,"/script/gltf/skin.js"
+
   
     ,"/script/scene/cubes.js"
     ,"/script/scene/triangulation.js"
     ,"/script/scene/render2d.js"
+    ,"/script/scene/stickman.js"
   
     ,"/script/index.js"
 ]

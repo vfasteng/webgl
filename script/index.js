@@ -1,13 +1,19 @@
 {
 
-    node('init',function(){
+    node('init',async function(){
+
+
+        const engine=await node('engine')()
 
 
         //node('Render2DScene')()
 
         //node('TriangulationScene')()
 
-        node('CubesScene')()
+        node('CubesScene')(engine)
+
+
+        //node('StickmanScene')(engine)
 
 
     })

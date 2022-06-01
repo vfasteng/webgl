@@ -78,9 +78,13 @@
 
     })
 
+    node('Mesh',function(...args){
+      return node('createMeshFromGeometry')(...args)
+    })
 
+    node('createMeshFromGeometry',function(engine,geometry,shader,addToEngine=true){
 
-    node('createMeshFromGeometry',function(gl,geometry,shader){
+      const gl=engine.gl
 
 
       let buffers
@@ -127,6 +131,10 @@
 
       node('assignSource')(mesh)
       node('assignScene')(mesh)
+
+      if(addToEngine){
+          engine.add(mesh)
+      }
 
       return mesh
 

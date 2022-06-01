@@ -2,11 +2,11 @@
 
 
 
-    node('CubesScene',async function(){
+    node('CubesScene',async function(engine){
 
 
 
-        const engine=await node('engine')()
+        //const engine=await node('engine')()
         const gl=engine.gl
 
 
@@ -39,7 +39,7 @@
         const meshes=[]
 
         for(let i=0;i<20;i++){
-            const mesh=node('createMeshFromGeometry')(gl, geometry, shaderProgram)
+            const mesh=node('createMeshFromGeometry')(engine, geometry, shaderProgram)
             mesh.source.translation=[pos(), pos(), pos()]
             const scaleX=scale()
             mesh.source.scale=[scaleX,scaleX,scaleX]
@@ -69,7 +69,7 @@
 
 
 
-        engine.models.push(...meshes)
+        //engine.models.push(...meshes)
 
 
 
