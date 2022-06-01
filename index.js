@@ -1228,12 +1228,12 @@ node('createRenderBuffer',function(gl,width,height){
 
       const load=node('load')
 
-      let path="/shaders-min"
-      try{
-        if(DEBUG!==undefined){
-          path="/shaders"
-        }
-      }catch(e){}
+      let path="/shaders"//-min"
+      //try{
+      //  if(DEBUG!==undefined){
+      //    path="/shaders"
+      //  }
+      //}catch(e){}
 
       const vertCode = await load(path+"/"+name+".vert")
       const fragCode = await load(path+"/"+name+".frag")
@@ -1887,7 +1887,7 @@ node('createRenderBuffer',function(gl,width,height){
             return (posX / 2)-Math.random()*posX
         }
 
-        const scaleX=0.2
+        const scaleX=0.06812
         function scale(){
             return (scaleX / 3)+Math.random()*scaleX
         }
@@ -1911,20 +1911,22 @@ node('createRenderBuffer',function(gl,width,height){
 
         const count=100.0;
 
-        for(let i=0;i<count;i++){
-            const mesh=node('createMeshFromGeometry')(engine, geometry, shaderProgram)
-            mesh.source.translation=[pos(), pos(), pos()]
-            const scaleX=scale()
-            mesh.source.scale=[scaleX,scaleX,scaleX]
-            mesh.source.factor=[factor(),factor(),factor()]
+        for(let x=0;x<count/3.5;x++){
+            for(let y=0;y<count/28.0;y++){
+                const mesh=node('createMeshFromGeometry')(engine, geometry, shaderProgram)
+                mesh.source.translation=[pos(), pos(), pos()]
+                const scaleX=scale()
+                mesh.source.scale=[scaleX,scaleX,scaleX]
+                mesh.source.factor=[factor(),factor(),factor()]
 
-            mesh.uniforms={
-                diffuseTexture,
+                mesh.uniforms={
+                    diffuseTexture,
+                }
+
+                //mesh.mode=gl.LINE_STRIP;
+
+                meshes.push(mesh)
             }
-
-            //mesh.mode=gl.LINE_STRIP;
-
-            meshes.push(mesh)
         }
 
 
@@ -2291,6 +2293,4 @@ node('createRenderBuffer',function(gl,width,height){
 
 
 }
-
-
 

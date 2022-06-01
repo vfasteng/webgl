@@ -1,5 +1,5 @@
 const fs=require('fs')
-const files=require('./public/files.js')
+const files=require('./files.js')
 const minify=require('./minify.js')
 
 
@@ -13,9 +13,9 @@ async function build(){
       }
     }
 
-    fs.writeFileSync('./dist/index.js',script)
+    fs.writeFileSync('./index.js',script)
 
-    fs.writeFileSync('./dist/index.min.js',await minify(script))
+    fs.writeFileSync('./index.min.js',await minify(script))
 
 
 }

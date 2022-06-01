@@ -8,12 +8,12 @@
 
       const load=node('load')
 
-      let path="/shaders-min"
-      try{
-        if(DEBUG!==undefined){
-          path="/shaders"
-        }
-      }catch(e){}
+      let path="/shaders"//-min"
+      //try{
+      //  if(DEBUG!==undefined){
+      //    path="/shaders"
+      //  }
+      //}catch(e){}
 
       const vertCode = await load(path+"/"+name+".vert")
       const fragCode = await load(path+"/"+name+".frag")

@@ -75,7 +75,7 @@ module.exports=async function(source){
 
    function shadersGet(names){
 
-        let files=fs.readdirSync('./shaders')
+        let files=fs.readdirSync('./shaders/')
         console.log(files)
     
         const sources={}
@@ -98,7 +98,7 @@ module.exports=async function(source){
           }
           sources[file]=shader
     
-          fs.writeFileSync('./dist/shaders-min/'+file,shader)
+          fs.writeFileSync('./shaders-min/'+file,shader)
         }
         /*let buffer=JSON.stringify(sources)
         buffer=Uint8Array.from(Array.from(buffer).map(letter => letter.charCodeAt(0)));
@@ -236,7 +236,7 @@ names.map(name=>{
     source=source.replace(new RegExp('(?!\/)([\\ \\(\\,\\[\\=\\-\\+\/\\*\\^\\.\\:\\!\\\']{1})('+name+')(?![a-zA-Z0-9\\"]{1})','gm'),'$1'+register(name))
 })
 
-fs.writeFileSync('./dist/test.min.js',source)
+fs.writeFileSync('./test.min.js',source)
 
 
 var min=await minify(source,options)
