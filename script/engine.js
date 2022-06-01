@@ -49,8 +49,11 @@
     this.print4 = new Print(this, 0.0,-1.0, -x, -x+wx)*/
 
 
-    const diffuseTexture=node('loadTexture')(gl,"/images/box.webp")
+    const colorTexture=node('loadTexture')(gl,"/images/box.webp")
 
+      const render2d=await node('Render2D')(engine,colorTexture)
+      ///render2d.uniforms.colorTexture=diffuseTexture
+      //engine.models.push(render2d)
 
 
     //print.uniforms.colorTexture=diffuseTexture//buffer.color

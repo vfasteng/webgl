@@ -18,6 +18,8 @@ const files=[
     ,"/script/uniform.js"
     ,"/script/vec3.js"
 
+    ,"/script/render2d.js"
+
   
     ,"/script/scene/cubes.js"
     ,"/script/scene/triangulation.js"
