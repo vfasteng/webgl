@@ -1,7 +1,7 @@
 {
 
 
-    node('uniformsSetter',function uniformsSetter(gl, program){
+    node('uniformsSetter',function uniformsSetter(gl,shader){
        
         let sampler=0
         gl.activeTexture(gl.TEXTURE0)
@@ -12,7 +12,7 @@
                 
                 for(const key of Object.keys(uniforms)){
 
-                    const pointer = gl.getUniformLocation(program,key)
+                    const pointer = gl.getUniformLocation(shader.program,key)
                     const Value=uniforms[key]
                 
                     if((! pointer)||(Value===undefined)){

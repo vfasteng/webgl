@@ -14,7 +14,7 @@
     
 
 
-    node('setupAttribute',function(gl,shaderProgram,buffer,name,size,arrayType){
+    node('setupAttribute',function(gl,shader,buffer,name,size,arrayType){
       
       if(arrayType===undefined){
         arrayType=gl.ARRAY_BUFFER
@@ -22,7 +22,7 @@
 
       gl.bindBuffer(arrayType, buffer);
 
-       const pointer = gl.getAttribLocation(shaderProgram, name);
+       const pointer = gl.getAttribLocation(shader.program, name);
 
        if(pointer>-1){
           gl.vertexAttribPointer(pointer, size, gl.FLOAT, false,0,0) ;
@@ -55,7 +55,7 @@
     })
 
 
-    node('setupAttributesAngGetVAO',function(gl,shaderProgram,buffers){
+    node('setupAttributesAngGetVAO',function(gl,shader,buffers){
 
       const vao = gl.createVertexArray();
       gl.bindVertexArray(vao);
@@ -68,7 +68,7 @@
         }
         let arrayType= (key==='indices')? gl.ELEMENT_ARRAY_BUFFER: gl.ARRAY_BUFFER
 
-          node('setupAttribute')(gl,shaderProgram, buffers[key], key,arraySize,arrayType)
+          node('setupAttribute')(gl,shader, buffers[key], key,arraySize,arrayType)
             
       }
 
@@ -80,27 +80,27 @@
 
 
 
-    node('createMeshFromGeometry',function(gl,geometry,shaderProgram){
+    node('createMeshFromGeometry',function(gl,geometry,shader){
 
 
       let buffers
       const mesh={
         geometry,
         buffers: buffers=node('createBuffersFromGeometry')(gl, geometry),
-        shaderProgram,
-        vao: node('setupAttributesAngGetVAO')(gl,shaderProgram,buffers),
+        shader,
+        vao: node('setupAttributesAngGetVAO')(gl,shader,buffers),
         mode:gl.TRIANGLES,
 
         render(gl,uniforms){
 
-            gl.useProgram(this.shaderProgram);
+            gl.useProgram(this.shader.program);
 
 
            
             gl.bindVertexArray(this.vao);
 
             
-            const uniformSetter=node('uniformsSetter')(gl,this.shaderProgram)
+            const uniformSetter=node('uniformsSetter')(gl,this.shader)
 
             uniformSetter.set(uniforms)
             uniformSetter.set(this.uniforms??{})

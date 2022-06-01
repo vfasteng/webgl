@@ -2,19 +2,25 @@
 
     node('createShaderByName',async function(gl,name){
 
+      const shader={
+        name,
+      }
+
       const load=node('load')
 
       let path="/shaders-min"
       try{
-      if(DEBUG!==undefined){
-        path="/shaders"
-      }
-    }catch(e){}
+        if(DEBUG!==undefined){
+          path="/shaders"
+        }
+      }catch(e){}
 
       const vertCode = await load(path+"/"+name+".vert")
       const fragCode = await load(path+"/"+name+".frag")
 
-      return node('createShaderFromSource')(gl,vertCode,fragCode)
+      shader.program = await node('createShaderFromSource')(gl,vertCode,fragCode)
+
+      return shader
 
     })
 

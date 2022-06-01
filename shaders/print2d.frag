@@ -16,6 +16,6 @@ void main(void) {
 
     //vec3 color=vec3(vTexCoords.x,vTexCoords.y,0.5);
 
-    outColor = vec4(color, 1.0);
+    outColor = vec4(color+vec3(0.25), 1.0);
 
 }

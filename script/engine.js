@@ -118,7 +118,7 @@
        render(gl, uniforms, frameTime)
        
 
-       
+       uniforms.colorTexture=diffuseTexture
        print.render(gl,uniforms)
 
 
