@@ -13,7 +13,7 @@
             fov: 5*9,
             aspect,
             near: 1/1000,
-            far: 1000,
+            far: 100,
 
             projection(){
               return mat4.perspective([], this.fov, this.aspect, this.near, this.far)

@@ -5,7 +5,7 @@
         gl.enable(gl.DEPTH_TEST);
         gl.depthFunc(gl.LEQUAL);
         gl.clearColor(0.0, 0.0, 0.0, 0.0);
-        gl.clearDepth(1.0);
+        gl.clearDepth(10.0);
 
     })
 

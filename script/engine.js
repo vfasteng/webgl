@@ -90,7 +90,10 @@
 
 
 
+    //gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LEQUAL);
+    //gl.colorMask(true, true, true, false);//.glcolorMask() 
     //gl.depthFunc(gl.LEQUAL);
 
     //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);

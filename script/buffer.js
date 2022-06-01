@@ -3,10 +3,15 @@ node('createRenderBuffer',function(gl,width,height){
     const buffer={
       width,
       height,
+      //renderbuffer: gl.createRenderbuffer(),
       framebuffer: gl.createFramebuffer(),
       color: node('createTexture')(gl,undefined,width,height,'color'),
       depth: node('createTexture')(gl,undefined,width,height,'depth'),
     }
+
+
+    //gl.bindRenderbuffer(gl.RENDERBUFFER, buffer.renderbuffer);
+    //gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT24, width,height);
 
     // framebuffer
     gl.bindFramebuffer(gl.FRAMEBUFFER, buffer.framebuffer);
@@ -32,6 +37,8 @@ node('createRenderBuffer',function(gl,width,height){
     // assemble buffers
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, buffer.color, 0);
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, buffer.depth, 0);
+
+    ///gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, buffer.renderbuffer);
 
     //this.checkBuffer();
 
