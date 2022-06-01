@@ -28,11 +28,11 @@
 
 
 
-    const ceratePrinter=node('ceratePrinter');
+    /*const ceratePrinter=node('ceratePrinter');
 
     var left=0, width=25
     var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
-    const print = await ceratePrinter(engine, 1,0.5, -x, -x+wx)
+    const print = await ceratePrinter(engine, 1,0.5, -x, -x+wx)*/
 
     /*var left=25, width=25
     var x=-(((left-100)/100)*2)-1, wx=(width/100)*2
@@ -111,15 +111,17 @@
         }
 
 
-       node('clearSceneAndSetBuffer')(gl,buffer)
-       render(gl, uniforms, frameTime)
+      // node('clearSceneAndSetBuffer')(gl,buffer)
+       //render(gl, uniforms, frameTime)
 
-       node('clearSceneAndSetBuffer')(gl)
-       render(gl, uniforms, frameTime)
+      node('clearSceneAndSetBuffer')(gl)
+      render(gl, uniforms, frameTime)
        
 
-       uniforms.colorTexture=diffuseTexture
-       print.render(gl,uniforms)
+      //uniforms.colorTexture=diffuseTexture
+      //print.render(gl,uniforms)
+
+
 
 
        requestAnimationFrame(animate);

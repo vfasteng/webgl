@@ -90,6 +90,7 @@
         shader,
         vao: node('setupAttributesAngGetVAO')(gl,shader,buffers),
         mode:gl.TRIANGLES,
+        uniforms:{},
 
         render(gl,uniforms){
 
