@@ -41,12 +41,13 @@
 
     engine.buffers=[]
 
-    const buffer=node('createRenderBuffer')(gl,512,512)
-    engine.buffers.push(buffer)
+    const buffer1=node('createRenderBuffer')(gl,512,512)
+    engine.buffers.push(buffer1)
 
-    /*const buffer2=node('createRenderBuffer')(gl,512,512)
+    const buffer2=node('createRenderBuffer')(gl,512,512)
     buffer2.shader=await node('createShaderByName')(gl,"depth")
-    engine.buffers.push(buffer2)*/
+    buffer2.clearColor=[0,0,0,1]
+    engine.buffers.push(buffer2)
 
 
     /*const ceratePrinter=node('ceratePrinter');
@@ -77,8 +78,8 @@
       const render2d=await node('Render2D')(engine)
       render2d.source.scale=[0.5,0.5,0.5]
       render2d.source.translation=[-0.5,0.5,0]
-      render2d.uniforms.colorTexture=buffer.color
-      render2d.uniforms.depthTexture=buffer.depth
+      render2d.uniforms.colorTexture=buffer2.color
+      render2d.uniforms.depthTexture=buffer2.color
       engine.renderers.push(render2d)
 
       /*const render2d2=await node('Render2D')(engine)
@@ -119,7 +120,7 @@
 
 
 
-      function render(gl, uniforms, frameTime){
+      function render(gl, uniforms, frameTime, shader){
 
         for(const model of engine.models){
   
@@ -127,7 +128,7 @@
             model.animate(frameTime)
           }
   
-          model.render(gl, uniforms)
+          model.render(gl, uniforms, frameTime, shader)
   
        }
   
@@ -153,7 +154,7 @@
         const uniforms={
             projection: camera.projection(),
             camera: camera.matrix(),
-            //cameraPosition:[0,0,6],
+            cameraPosition:camera.source.translation,
         }
 
 
@@ -163,7 +164,7 @@
         }
 
         node('clearSceneAndSetBuffer')(gl)
-        render(gl, uniforms, frameTime)
+        render(gl, uniforms, frameTime)//, buffer2.shader)
         
 
         //render2d.uniforms.colorTexture=buffer.color//colorTexture

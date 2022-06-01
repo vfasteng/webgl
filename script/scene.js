@@ -12,8 +12,10 @@
     node('clearSceneAndSetBuffer',function(gl,buffer){
 
         const pointer=buffer ? buffer.framebuffer:null;
-
         gl.bindFramebuffer(gl.FRAMEBUFFER, pointer);
+
+        const clearColor=(buffer && buffer.clearColor) ? buffer.clearColor:[0.0, 0.0, 0.0, 0.0];
+        gl.clearColor(...clearColor);
 
         if(buffer){
             gl.viewport(0.0, 0.0, buffer.width, buffer.height);
