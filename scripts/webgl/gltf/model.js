@@ -95,7 +95,7 @@
                 }
           
                 buff.geometry.indices=gltf.accessors[mesh.primitives[0].indices]
-                buff.material=gltf.materials?gltf.materials[mesh.primitives[0].material]:{}
+                buff.material=gltf.materials ? gltf.materials[mesh.primitives[0].material]:{}
           
                 return buff
             })

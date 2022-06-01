@@ -5,9 +5,9 @@ const files=[
     ,"/scripts/red/init.js"
 
     ,"/scripts/red/factories/compile.js"
-    ,"/scripts/red/factories/http.js"
+    //,"/scripts/red/factories/http.js"
     ,"/scripts/red/factories/watch.js"
-    ,"/scripts/red/factories/window.js"
+    //,"/scripts/red/factories/window.js"
 
     ,"/scripts/red/directives/click.js"
 

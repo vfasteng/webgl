@@ -74,14 +74,14 @@
     this.print4 = new Print(this, 0.0,-1.0, -x, -x+wx)*/
 
 
-    //const colorTexture=node('loadTexture')(gl,"/images/box.webp")
+    const bgTexture=node('loadTexture')(gl,"/images/box.webp")
 
     engine.renderers=[]
 
       const render2d=await node('Render2D')(engine)
-      render2d.source.scale=[0.5,0.5,0.5]
-      render2d.source.translation=[-0.5,0.5,0]
-      render2d.uniforms.colorTexture=buffer2.color
+      render2d.source.scale=vec3(1.0)//[0.5,0.5,0.5]
+      //render2d.source.translation=[0.0,0.0,0]
+      render2d.uniforms.colorTexture=buffer1.color
       render2d.uniforms.depthTexture=buffer2.color
       engine.renderers.push(render2d)
 
@@ -95,7 +95,7 @@
       //engine.models.push(render2d)
 
 
-    //print.uniforms.colorTexture=diffuseTexture//buffer.color
+    //const colorTexture=diffuseTexture//buffer.color
 
 
 
@@ -145,12 +145,13 @@
     node('setupScene')(gl)
 
     var time_old = 0;
+    let frame=0;
 
     var animate = function(time) {
 
 
        const frameTime = (time-time_old)*0.001;
-
+       frame++;
 
 
 
@@ -162,6 +163,11 @@
             camera: camera.matrix(),
             cameraPosition:camera.source.translation,
             lightDirection:camera.source.translation,
+            iResolution:[gl.canvas.width,gl.canvas.height],
+            iTime:time,
+            delta:frameTime,
+            frame:frame,
+            backgroundTexture:bgTexture,
         }
 
 

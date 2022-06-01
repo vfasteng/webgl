@@ -10,7 +10,7 @@
         if(isPowerOf2(width) && isPowerOf2(height) && (kind!=='depth') ) {
             gl.generateMipmap(gl.TEXTURE_2D);
         } else {
-            const filter=(kind==='depth')?gl.NEAREST:gl.LINEAR;
+            const filter=(kind==='depth') ? gl.NEAREST:gl.LINEAR;
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter);
             if(kind!=='depth'){

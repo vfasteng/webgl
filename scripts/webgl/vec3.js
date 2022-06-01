@@ -1,8 +1,8 @@
 {
 
 
-    function vec3(){
-        return vec3.create()
+    function vec3(num){
+        return vec3.create(num)
       }
 
     node('assign')(vec3,{

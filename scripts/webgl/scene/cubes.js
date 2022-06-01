@@ -38,7 +38,9 @@
 
         const meshes=[]
 
-        for(let i=0;i<20;i++){
+        const count=100.0;
+
+        for(let i=0;i<count;i++){
             const mesh=node('createMeshFromGeometry')(engine, geometry, shaderProgram)
             mesh.source.translation=[pos(), pos(), pos()]
             const scaleX=scale()
