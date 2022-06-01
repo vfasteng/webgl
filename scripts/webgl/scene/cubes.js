@@ -40,8 +40,8 @@
 
         const count=100.0;
 
-        for(let x=0;x<count/3.5;x++){
-            for(let y=0;y<count/28.0;y++){
+        for(let x=0; x< count / 3.5 ;x++){
+            for(let y=0;y< count / 28.0 ;y++){
                 const mesh=node('createMeshFromGeometry')(engine, geometry, shaderProgram)
                 mesh.source.translation=[pos(), pos(), pos()]
                 const scaleX=scale()
