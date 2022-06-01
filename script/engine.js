@@ -24,7 +24,7 @@
 
 
 
-    const buffer=node('createRenderBuffer')(gl,512,512)
+    //const buffer=node('createRenderBuffer')(gl,512,512)
 
 
 
@@ -114,8 +114,8 @@
         }
 
 
-      // node('clearSceneAndSetBuffer')(gl,buffer)
-       //render(gl, uniforms, frameTime)
+      //node('clearSceneAndSetBuffer')(gl,buffer)
+      //render(gl, uniforms, frameTime)
 
       node('clearSceneAndSetBuffer')(gl)
       render(gl, uniforms, frameTime)

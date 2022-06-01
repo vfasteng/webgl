@@ -6,7 +6,6 @@ const files=[
 
     
     ,"/script/buffer.js"
-    ,"/script/print.js"
 
     ,"/script/engine.js"
 
