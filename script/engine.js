@@ -140,7 +140,7 @@
   
       }
 
-
+      console.log('engine',engine);
 
     node('setupScene')(gl)
 
@@ -161,6 +161,7 @@
             projection: camera.projection(),
             camera: camera.matrix(),
             cameraPosition:camera.source.translation,
+            lightDirection:camera.source.translation,
         }
 
 

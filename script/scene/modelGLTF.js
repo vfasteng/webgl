@@ -2,7 +2,7 @@
 
 
 
-    node('StickmanScene',async function(engine){
+    node('GLTFScene',async function(engine){
 
 
 

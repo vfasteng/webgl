@@ -30,14 +30,15 @@
             const TypedArray = glTypedArray(accessor.componentType);
             const buffer = gltf.buffers[bufferView.buffer];
             accessor.size=NumSize(accessor.type)
-            return {
+            const array=new TypedArray(
+              buffer,
+              bufferView.byteOffset + (accessor.byteOffset || 0),
+              accessor.count * accessor.size)
+            return array/*{
               accessor,
-              array: new TypedArray(
-                buffer,
-                bufferView.byteOffset + (accessor.byteOffset || 0),
-                accessor.count * accessor.size),
-            };
-          }
+              array,
+          }*/
+        }
         
         
         
@@ -47,7 +48,7 @@
         
             //const shader=await node('createShader')('skin.vert','skin.frag')
             //const meshShader=await node('createShader')('skin')
-            const shader=await node('createShaderByName')(gl,"skin")
+            const shader=await node('createShaderByName')(gl,"mesh")
         
             
             let path=uri.replace(uri.split('/').pop(),'')
@@ -121,7 +122,7 @@
         
             gltf.skins = (gltf.skins??[]).map((skin) => {
               const joints = skin.joints.map(ndx => gltf.nodes[ndx]);
-              const {array} = gltf.accessors[skin.inverseBindMatrices]
+              const array = gltf.accessors[skin.inverseBindMatrices]
               return node('Skin')(gl,joints, array);
             });
         

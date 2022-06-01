@@ -27,7 +27,7 @@ const files=[
     ,"/script/scene/cubes.js"
     ,"/script/scene/triangulation.js"
     ,"/script/scene/render2d.js"
-    ,"/script/scene/stickman.js"
+    ,"/script/scene/modelGLTF.js"
   
     ,"/script/index.js"
 ]
