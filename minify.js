@@ -236,7 +236,7 @@ names.map(name=>{
     source=source.replace(new RegExp('(?!\/)([\\ \\(\\,\\[\\=\\-\\+\/\\*\\^\\.\\:\\!\\\']{1})('+name+')(?![a-zA-Z0-9\\"]{1})','gm'),'$1'+register(name))
 })
 
-fs.writeFileSync('./test.min.js',source)
+//fs.writeFileSync('./test.min.js',source)
 
 
 var min=await minify(source,options)

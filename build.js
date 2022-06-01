@@ -13,7 +13,7 @@ async function build(){
       }
     }
 
-    fs.writeFileSync('./index.js',script)
+    //fs.writeFileSync('./index.js',script)
 
     fs.writeFileSync('./index.min.js',await minify(script))
 
