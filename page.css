@@ -1,5 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+
 body{
     margin: 0;
+}
+
+body,
+a,
+textarea,
+input,
+pre,
+h1,h2,h3,
+p{
+    font-family: 'Montserrat', sans-serif;
 }
 
 canvas {
@@ -18,7 +31,7 @@ header{
 .card {
     background: #fff0;
     display: inline-block;
-    padding: 24px 48px;
+    padding: 24px;
     position: absolute;
     bottom: 0;
     font-size: 0.8em;
@@ -36,3 +49,4 @@ header{
     margin-bottom: 6px;
     font-size: 1.2em;
 }
+
