@@ -53,7 +53,7 @@
 
 
 
-    print.uniforms.colorTexture=diffuseTexture//buffer.color
+    //print.uniforms.colorTexture=diffuseTexture//buffer.color
 
 
 
