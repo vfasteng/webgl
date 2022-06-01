@@ -48,7 +48,7 @@
         
             //const shader=await node('createShader')('skin.vert','skin.frag')
             //const meshShader=await node('createShader')('skin')
-            const shader=await node('createShaderByName')(gl,"mesh")
+            const shader=await node('createShaderByName')(gl,"skin")
         
             
             let path=uri.replace(uri.split('/').pop(),'')

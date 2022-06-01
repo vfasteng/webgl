@@ -25,8 +25,12 @@
        const pointer = gl.getAttribLocation(shader.program, name);
 
        if(pointer>-1){
+         if(name==='joints'){
+          gl.vertexAttribIPointer(pointer, size, gl.UNSIGNED_SHORT, false,0,0) ;
+         }else{
           gl.vertexAttribPointer(pointer, size, gl.FLOAT, false,0,0) ;
-          gl.enableVertexAttribArray(pointer);
+         }
+        gl.enableVertexAttribArray(pointer);
        }
 
     })
