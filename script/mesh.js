@@ -92,16 +92,18 @@
         mode:gl.TRIANGLES,
         uniforms:{},
 
-        render(gl,uniforms){
+        render(gl,uniforms,frameTime,shader){
 
-            gl.useProgram(this.shader.program);
+            shader=shader ?? this.shader
+
+            gl.useProgram(shader.program);
 
 
            
             gl.bindVertexArray(this.vao);
 
             
-            const uniformSetter=node('uniformsSetter')(gl,this.shader)
+            const uniformSetter=node('uniformsSetter')(gl,shader)
 
             uniformSetter.set(uniforms)
             uniformSetter.set(this.uniforms??{})

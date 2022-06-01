@@ -37,10 +37,16 @@
       
 
 
+  
 
+    engine.buffers=[]
 
     const buffer=node('createRenderBuffer')(gl,512,512)
+    engine.buffers.push(buffer)
 
+    /*const buffer2=node('createRenderBuffer')(gl,512,512)
+    buffer2.shader=await node('createShaderByName')(gl,"depth")
+    engine.buffers.push(buffer2)*/
 
 
     /*const ceratePrinter=node('ceratePrinter');
@@ -147,11 +153,14 @@
         const uniforms={
             projection: camera.projection(),
             camera: camera.matrix(),
+            //cameraPosition:[0,0,6],
         }
 
 
-        node('clearSceneAndSetBuffer')(gl,buffer)
-        render(gl, uniforms, frameTime)
+        for(const buffer of engine.buffers){
+            node('clearSceneAndSetBuffer')(gl,buffer)
+            render(gl, uniforms, frameTime, buffer.shader)
+        }
 
         node('clearSceneAndSetBuffer')(gl)
         render(gl, uniforms, frameTime)
