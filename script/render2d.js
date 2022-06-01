@@ -38,8 +38,8 @@
         const render={
             uniforms,
             render(gl,uniforms){
-                //Object.assign(uniforms,this.uniforms)
-                mesh.uniforms=this.uniforms;
+                node('assign')(mesh.uniforms,this.uniforms)
+                //mesh.uniforms=this.uniforms;
                 mesh.render(gl,uniforms)
             }
         }

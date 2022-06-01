@@ -22,7 +22,7 @@
       gl.bindTexture(gl.TEXTURE_2D, texture);
 
       if(kind==='default'){
-        const pixel = new Uint8Array(color)
+        const pixel = node('U8A')(color)
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
       }else if(kind==='color'){
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
