@@ -4,7 +4,7 @@ node('ceratePrinter',async function(engine,left,right,top,bottom){
 
         const shaderProgram=await node('createShaderByName')(gl,"render2d")
 
-        let geometry=await node('load')("/models/box.json","json")
+        let geometry=await node('load')("/models/quad.json","json")
         
         geometry=node('fixGeometry')(geometry)
 
