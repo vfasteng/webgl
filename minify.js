@@ -33,7 +33,7 @@ module.exports=async function(source){
 'a-zA-Z','a-z','A-Z','zA','keys','values','map','filer','exec','match','requestAnimationFrame','pathname','hash','break','continue','getContext',
 'tan','hypot','width','height','Image','random','round','includes','onload','src','JSON','stringify','parse','then','getAttributeNames',
 'getAttribute','removeAttribute','spellcheck','class','bind','scrollTop','scrollLeft','style','important','require','node','setAttribute','getAttribute',
-'body','innerWidth','innerHeight','io'].includes(param)){
+'body','innerWidth','innerHeight','io','in','i'].includes(param)){
         return param
       }
       if(glarr.includes(param)){

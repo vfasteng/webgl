@@ -8,7 +8,7 @@
 
       const load=node('load')
 
-      let path="/shaders"//-min"
+      let path="/shaders.min"//-min"
       //try{
       //  if(DEBUG!==undefined){
       //    path="/shaders"

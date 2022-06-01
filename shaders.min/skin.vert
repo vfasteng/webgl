@@ -21,7 +21,7 @@ out float Q;
 out vec3 T;
 out vec2 U;
 
-mat4 r(uint jointNdx) {
+mat4 q(uint jointNdx) {
   return mat4(
     texelFetch(jointTexture, ivec2(0, jointNdx), 0),
     texelFetch(jointTexture, ivec2(1, jointNdx), 0),
@@ -31,12 +31,12 @@ mat4 r(uint jointNdx) {
 
 void main (void) {
   if(int(numJoints)>0){
-      mat4 t = r(joints[0]) * weights[0] +
-                    r(joints[1]) * weights[1] +
-                    r(joints[2]) * weights[2] +
-                    r(joints[3]) * weights[3];
+      mat4 s = q(joints[0]) * weights[0] +
+                    q(joints[1]) * weights[1] +
+                    q(joints[2]) * weights[2] +
+                    q(joints[3]) * weights[3];
   
-      gl_Position = I * J * K * t* vec4(F, 1.0);
+      gl_Position = I * J * K * s* vec4(F, 1.0);
   }else{
       gl_Position = I * J * K * vec4(F, 1.0);
   }
