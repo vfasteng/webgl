@@ -1,7 +1,7 @@
 {
   
     node('createCanvas',function(){
-        canvas=document.createElement('canvas')
+        const canvas=document.createElement('canvas')
         canvas.width=window.innerWidth
         canvas.height=window.innerHeight
         document.body.append(canvas)
