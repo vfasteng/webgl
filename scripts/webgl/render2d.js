@@ -19,6 +19,7 @@
 
         let geometry=await node('load')("/models/quad.json","json")
         
+        
         geometry=node('fixGeometry')(geometry)
 
         //const diffuseTexture=node('loadTexture')(gl,"/wp-includes/images/box.webp")

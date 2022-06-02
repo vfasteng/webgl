@@ -78,12 +78,13 @@
 
     engine.renderers=[]
 
-      const render2d=await node('Render2D')(engine)
-      render2d.source.scale=vec3(1.0)//[0.5,0.5,0.5]
-      //render2d.source.translation=[0.0,0.0,0]
-      render2d.uniforms.colorTexture=buffer1.color
-      render2d.uniforms.depthTexture=buffer2.color
-      engine.renderers.push(render2d)
+
+        const render2d=await node('Render2D')(engine)
+        render2d.source.scale=vec3(0.5)//[0.5,0.5,0.5]
+        //render2d.source.translation=[0.0,0.0,0]
+        render2d.uniforms.colorTexture=buffer1.color
+        render2d.uniforms.depthTexture=buffer2.color
+        engine.renderers.push(render2d)
 
       /*const render2d2=await node('Render2D')(engine)
       render2d2.source.scale=[0.5,0.5,0.5]
