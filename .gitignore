@@ -1,6 +1,6 @@
 /node_modules
 
 /dist/*.js
-/dist/shaders-min/*.frag
-/dist/shaders-min/*.vert
-/dist/shaders-min/*.glsl
+/dist/shaders/*.frag
+/dist/shaders/*.vert
+/dist/shaders/*.glsl
