@@ -1,8 +1,8 @@
 {
-  "name": "webgl",
-  "version": "0.0.5",
-  "description": "",
-  "main": "build.js",
+  "name": "www.worzala.pl",
+  "version": "0.0.1",
+  "description": "webgl engine",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -11,13 +11,20 @@
     "type": "git",
     "url": "git+https://github.com/pawelworzala/webgl.git"
   },
-  "author": "Pawel Worzala",
+  "keywords": [
+    "webgl",
+    "worzala"
+  ],
+  "author": "Pawel Worzala <worzala86@gmail.com>",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/pawelworzala/webgl/issues"
   },
   "homepage": "https://github.com/pawelworzala/webgl#readme",
   "dependencies": {
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
     "terser": "^5.14.0"
   }
 }
