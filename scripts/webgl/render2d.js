@@ -2,7 +2,7 @@
 
 
 
-    node('Render2D',async function(engine){
+    node('Render2D',async function(engine,shaderName){
 
 
 
@@ -15,7 +15,7 @@
         //engine.camera.source.translation = vec3.create()
 
 
-        const shaderProgram=await node('createShaderByName')(gl,"render2d")
+        const shaderProgram=await node('createShaderByName')(gl,shaderName)
 
         let geometry=await node('load')("/models/quad.json","json")
         
