@@ -20,15 +20,20 @@
 
 </body>
 
-    <script src="/files.js"></script>
+
     <script>
-        const DEBUG=true;
-        
-        for(const file of files){
-            const script=document.createElement('script');
-            script.src=file;
-            document.body.append(script);
-        }
+        (async function(){
+            const promise=await fetch('/files.json')
+            const files=await promise.json()
+
+            const DEBUG=true;
+            
+            for(const file of files){
+                const script=document.createElement('script');
+                script.src=file;
+                document.body.append(script);
+            }
+        })()
     </script>
 
 </html>
